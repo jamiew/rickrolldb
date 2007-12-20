@@ -18,10 +18,7 @@ module Merb
 
     # URL shortcuts -- Merb could use a model func for generating its ID, TODO
     def entry_url(entry)
-      coder = HTMLEntities.new
-      id = coder.encode( entry.url.gsub('http://', '').gsub('.', 'DOT'), :decimal)
-      puts "id: #{id}"
-      url( :entry, :id => id )
+      url( :entry, :id => entry.id_for_url )
     end
 
     # railsisms

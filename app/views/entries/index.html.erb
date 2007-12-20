@@ -38,8 +38,8 @@
 				-%>
 				<span class="title"><%= link_to display, url %></span>
 				<span class="created_at">
-					added <%= timeago(entry.created_at) %> 
-					<% unless entry.created_at != entry.updated_at %>, updated <%= timeago(entry.updated_at) %><% end %>
+					added <%= timeago(entry.created_at) %>
+					<% unless not entry.updated_at.nil? and entry.created_at != entry.updated_at %>, updated <%= timeago(entry.updated_at) %><% end %>
 				</span>
 				<% unless entry.user.nil? %><span class="created_at">by <%= timeago(entry.user.to_s) %></span><% end %>
 			</div>
