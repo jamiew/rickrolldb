@@ -32,7 +32,7 @@ class Entries < Application
     @entry = Entry.new(params[:entry])
     if @entry.save
       # redirect url(:entry, @entry)
-      redirect url('/')
+      redirect '/'
     else
       render :action => :new
     end
