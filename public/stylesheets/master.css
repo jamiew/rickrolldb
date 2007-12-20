@@ -113,17 +113,33 @@ p {
 /*  text-align: center;*/
 }
 
+#header #title {
+  width: 440px;
+  margin: 0 auto;  
+}
+
 /******* infoz *******/
+#header img.logo {
+  border: 1px solid #cca;
+  margin-right: 12px;
+  margin-top: 8px;
+}
 #header h1 {
   font-size: 20pt;
   text-transform: uppercase;
 }
 #header h2 {
   font-size: 11pt;
+  color: #fff;
 }
 #header h1 a {
   border: 0;
   color: #ff5;
+}
+#header h1 a:hover {
+  color: #ffd;
+  background-color: transparent;
+  text-decoration: none;
 }
 
 #about {
@@ -131,7 +147,7 @@ p {
   font-size: 9pt;
   color: #bbb;
   float: left;
-  width: 300px;
+  width: 320px;
 }
 #about a, #header h2 a {
   color: #eee;
@@ -149,6 +165,7 @@ p {
 
 #ricklist {
   float: right;
+  margin-top: 15px;
   width: 200px;
   margin-right: 10px;
 }
