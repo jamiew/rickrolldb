@@ -56,7 +56,7 @@ class Entries < Application
   def destroy
     @entry = Entry.find(params[:id])
     if @entry.destroy
-      redirect url(:entrys)
+      redirect url(:entries)
     else
       raise BadRequest
     end
@@ -90,7 +90,7 @@ class Entries < Application
     if request.xhr?
       render :inline => 'flagged for great justice'
     else
-      redirect url(:entries)
+      redirect url('/')
     end
   end
   
