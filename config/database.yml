@@ -13,4 +13,6 @@
 
 :production:
   <<: *defaults
+  :username: eyebeam
+  :password: eyebeam3
   :database: rickrolldb_prod
