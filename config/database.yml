@@ -1,0 +1,16 @@
+---
+# This is a sample database file for the ActiveRecord ORM
+:development: &defaults
+  :adapter: mysql
+  :database: rickrolldb_dev
+  :username: root
+  :password: 
+  :host: localhost
+
+:test:
+  <<: *defaults
+  :database: rickrolldb_test
+
+:production:
+  <<: *defaults
+  :database: rickrolldb_prod

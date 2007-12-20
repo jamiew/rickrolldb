@@ -1,0 +1,59 @@
+<%# index for entries %>
+
+<div id="add">
+	<form method="POST" action="<%= url(:entries) %>">
+		<% entry = Entry.new %>
+		<%= control_for entry, :url, :text, :label => 'Rickroll URL', :size => 25, :class => 'large required clear-on-click', :value => 'http://' %>
+		<%#= control_for entry, :title, :text, :label => 'Title', :size => 20, :class => 'optional' %>
+	
+		<%# user = User.new %>
+		<%#= control_for user, :name, :text, :label => 'Your name', :size => 20, :class => 'optional' %>
+		<%#= control_for user, :email, :text, :label => 'Email', :size => 20, :class => 'optional' %>		
+		<%#= control_for user, :website, :text, :label => 'Website', :size => 20, :class => 'optional' %>
+	
+		<input type="submit" name="submit" value="submit" class="submit" />
+	</form>
+		
+</div> <!-- /#add -->
+
+<div id="user-info">
+	you are: <span class="username editable"><%= current_user %></span>
+</div>
+
+
+<div id="entries">
+	<h2>The Culprits</h2>
+
+	<ul>
+	<% @entries.each do |entry| -%>
+		<li>
+			<div class="info">
+				<img src="/images/screenshot-default.png" alt="" title="" class="screenshot" />
+			
+				<% 
+					limit = 40
+					display = entry.title || entry.url
+					display = display.length > limit ? display[0..limit]+'...' : display
+					url = (entry.url =~ /^http/) ? entry.url : "http://#{entry.url}"
+				-%>
+				<span class="title"><%= link_to display, url %></span>
+				<span class="created_at">
+					added <%= timeago(entry.created_at) %> 
+					<% unless entry.created_at != entry.updated_at %>, updated <%= timeago(entry.updated_at) %><% end %>
+				</span>
+				<% unless entry.user.nil? %><span class="created_at">by <%= timeago(entry.user.to_s) %></span><% end %>
+			</div>
+		
+			<!-- <div class="comments"><%= link_to "comments (#{entry.comments.length})", entry_url(entry) %></div> -->
+
+			<div class="flags">
+				<span class="confirm"><code>+</code> <%= link_to "confirm", url(:confirm_entry, entry) %> (<%= entry.confirmations.length %>)</span>
+				<span class="dispute"><code>-</code> <%= link_to "dispute", url(:dispute_entry, entry) %> (<%= entry.disputes.length %>)</span>
+			</div>
+		
+		</li>
+	
+	
+	<% end -%>
+	</ul>
+</div> <!-- /#entries -->

@@ -1,0 +1,25 @@
+<h2>Rickroll info</h2>
+<ul class="entry-info">
+	<li>URL: <%= @entry.url %></li>
+	<li>Title: <%= @entry.title || "(nil)" %></li>
+	<li>Submitted <%= timeago(@entry.created_at) %>, on <%= @entry.created_at.strftime('%D %I:%m(pm/am)') %></li>
+	<li>By <%= @entry.user || "(anonymous)" %></li>
+</ul>
+
+<h2>Flags</h2>
+<ul class="flags">
+<%= "none" if @entry.flags.empty? %>
+<% @entry.flags.each do |flag| -%>
+	<li><%= flag.name %>: <%= flag.value %></li>
+<% end -%>	
+
+<h2>Comments</h2>
+<%= "none" if @entry.comments.empty? %>
+<ul>
+<% @entry.comments.each do |flag| -%>
+
+	<li>
+		<%= comment.user %>, <%= timeago(comment.created_at) %>:
+		<p class="comment-body"><%= comment.body %>: <%= flag.value %></p>
+	</li>
+<% end -%>	

@@ -1,0 +1,289 @@
+/************************/
+/* rickrolldb css       */
+/* by jamei wilkinson   */
+/* http://tramchase.com */
+/************************/
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: Arial, Verdana, sans-serif;
+  font-size: 12px;
+  background-color: #000;
+  color: #fff;
+}
+
+a {
+  color: #dbb;
+  text-decoration: none;
+  border-bottom: 1px dotted #cbc;
+}
+a:hover {
+  color: #4d9b12;
+  background-color: #fff;
+  text-decoration: underline;
+}
+
+h1, h2, h3 {
+  font-family: Arial, Verdana, sans-serif;
+  font-weight: 300;  
+  color: #ff5;  
+}  
+
+h1 {
+  font-size: 18pt;
+}
+h2 {
+  font-size: 12pt;
+}
+h3 {
+  color: #4d9b12;
+  font-size: 12pt;
+  margin-top: 5px;
+}
+
+p {
+/*  line-height: 20px;*/
+  padding: 5px;
+}
+
+
+
+/******** helpers ********/
+.right {
+  float: right;
+  font-size: 100%;
+  margin-top: 5px;
+}
+.left {
+  float: left;
+  font-size: 100%;
+  margin-top: 5px;
+}
+.clear, .clearer { clear: both; }
+
+
+
+/********* layout ********/
+#container {
+  width: 550px;
+  text-align: left;
+  background-color: #444;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid #999;
+  border-top: none; border-bottom: none;
+}
+
+
+#left {
+  /* goodbye */
+  display: none;
+  float: left;
+  width: 250px;
+  background-color: #FFFFFF;
+  color: black;
+}
+
+#left h3 {
+  color: #c55;
+}
+
+#main {
+/*  margin: 5px 5px 5px 260px;*/
+  margin: 15px 0 15px 0;
+  padding: 0 15px 0 15px;
+  min-height: 400px;
+}
+
+#footer {
+  clear: both;
+  text-align: right;
+  font-size: 10px;
+  font-family: Verdana, Arial, sans-serif;
+  padding: 10px 20px 20px 0;
+}
+
+#header {
+  padding: 5px 0 20px 15px;
+/*  text-align: center;*/
+}
+
+/******* infoz *******/
+#header h1 {
+  font-size: 20pt;
+  text-transform: uppercase;
+}
+#header h2 {
+  font-size: 11pt;
+}
+#header h1 a {
+  border: 0;
+  color: #ff5;
+}
+
+#about {
+  margin-top: 12px;
+  font-size: 9pt;
+  color: #bbb;
+  float: left;
+  width: 300px;
+}
+#about a, #header h2 a {
+  color: #eee;
+  border-bottom: 1px dotted #eee;
+}
+
+#about ul {
+  margin-top: 5px;
+}
+#about ul li {
+  margin-bottom: 5px;
+  margin-left: 12px;
+}
+
+
+#ricklist {
+  float: right;
+  width: 200px;
+  margin-right: 10px;
+}
+#ricklist a {
+  display: block;
+  margin-bottom: 8px;
+  width: 110px;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+#ricklist a.subscribe {
+  padding: 10px;
+  background-color: #ecc; 
+  color: #922;
+  border: 2px solid #a55;
+  font-size: 12pt;
+}  
+#ricklist a.ricklist {
+  width: 100px;
+  font-size: 10pt;
+  padding: 5px 2px;
+  border: 2px solid transparent;
+  background-color: #baa;
+  color: #722;
+}
+#ricklist a:hover {
+  text-decoration: none;
+  background-color: #fee;
+  color: #a55;
+  border: 2px solid #a99;
+}
+
+/******* usrrr *********/
+#user-info {
+  clear: both;
+  font-size: 8pt;
+  text-align: right;
+}
+#user-info .editable {
+  border-bottom: 1px dotted #fcc;
+  cursor: pointer;
+}
+
+
+/******** submit ********/
+#add {
+  display: block;
+  clear: both;
+  padding: 5px 3px;
+  background-color: #ccc;
+  color: #555;
+  border: 1px dotted #aaa;  
+}
+
+#add label {
+  margin-right: 5px;
+  font-size: 12pt;
+}
+#add input {
+  display: inline;
+  border: 1px solid #fcf;
+  padding: 2px 3px;
+  color: #999;
+  font-size: 15pt;
+}
+#add input.submit {
+  margin-left: 2px;
+  color: #f00;
+  background-color: #aaa;
+  color: #555;
+  border: 1px solid #888;
+}
+#add input.large {
+}
+#add input.required {
+}
+#add input.optional {
+}
+
+
+
+
+/********** entries (index) **********/
+
+#entries {
+  margin-top: 30px;
+}
+
+#entries h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  padding: 3px 0 1px 0;
+  border: 1px solid #992;
+  border-left: 0;
+  border-right: 0;
+}
+
+#entries ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 420px;
+  
+}
+#entries ul li {
+  height: 50px;
+  overflow: hidden;
+  padding-right: 10px;
+}
+#entries ul li img {
+  float: left;
+  border: 1px solid #999;
+  margin-right: 10px;
+  height: 40px; /* sometimes up to 60px */
+}
+#entries ul .info {
+  float: left;
+}
+#entries ul /*.info*/ span {
+  display: block;
+  margin-bottom: 4px;
+}
+#entries .flags, #entries .comments {
+  float: right;
+  margin: 0 0 0 20px;
+}
+#entries .created_at {
+  font-size: 8pt;
+}
+
+span.confirm {
+  color: #aca;
+}
+span.dispute {
+  color: #caa;
+}
+
