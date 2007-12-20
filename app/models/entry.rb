@@ -15,7 +15,7 @@ class Entry < ActiveRecord::Base
   
   def blacklist_url
     raw = url.gsub(/^http\:\/\//, '').gsub(/^www\./, '').gsub(/\/$/, '')
-    "*#{raw}*"
+    "*#{raw}*#body"
   end
   
   def id_for_url

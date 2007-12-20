@@ -19,7 +19,7 @@ class Entries < Application
   end
   
   def new
-    only_provides :html
+    only_provides :html_escape
     @entry = Entry.new(params[:entry])
     render
   end
@@ -28,13 +28,19 @@ class Entries < Application
     # sanitize
     params[:entry][:url].gsub!('http://', '') rescue nil
     
-    # createz
-    @entry = Entry.new(params[:entry])
-    if @entry.save
-      # redirect url(:entry, @entry)
-      redirect '/'
-    else
-      render :action => :new
+    # create if it doesn't exist, in slightly ghetto fashion
+    @entry = Entry.find_by_url(params[:entry][:url])
+    if @entry.nil?
+      @entry = Entry.new(params[:entry])
+      if @entry.save
+        # redirect url(:entry, @entry)
+        redirect '/'
+      else
+        # render :action => :new
+        render :inline => "Errors creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
+      end
+    else #already exists, just add a confirm
+      redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
     end
   end
   
