@@ -13,6 +13,10 @@ class Entry < ActiveRecord::Base
     flags.select { |u| u.name == 'confirm:false' }
   end
   
+  def confirmed?
+    confirmations.length > disputes.length
+  end
+  
   def blacklist_url
     raw = url.gsub(/^http\:\/\//, '').gsub(/^www\./, '').gsub(/\/$/, '')
     if url =~ /youtube\.com/
