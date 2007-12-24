@@ -34,7 +34,7 @@ class Entries < Application
     puts "CREATE....."
     puts params.inspect
     url = params[:url] || params[:entry][:url]
-    raise "No URL specified!" if url.nil?
+    raise "No URL specified!" if url.nil? or url.empty?
     url.gsub!('http://', '') rescue nil
     puts "final url = #{url}"
     
