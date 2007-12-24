@@ -19,22 +19,34 @@ class Entries < Application
   end
   
   def new
-    only_provides :html_escape
-    @entry = Entry.new(params[:entry])
-    render
+    #only_provides :html_escape
+    if not params[:url].empty? # called via bookmarklet
+      puts "going to create from passed URL..."
+      create
+    else 
+      @entry = Entry.new(params[:entry])
+      render
+    end
   end
   
   def create
     # sanitize
-    params[:entry][:url].gsub!('http://', '') rescue nil
+    puts "CREATE....."
+    puts params.inspect
+    url = params[:url] || params[:entry][:url]
+    raise "No URL specified!" if url.nil?
+    url.gsub!('http://', '') rescue nil
+    puts "final url = #{url}"
     
     # create if it doesn't exist, in slightly ghetto fashion
-    @entry = Entry.find_by_url(params[:entry][:url])
+    @entry = Entry.find_by_url(url)
     if @entry.nil?
       @entry = Entry.new(params[:entry])
+      @entry.url = url if @entry.url != url #checking in case we're not using params[:entry][:url] which behaves funny
       if @entry.save
+        # also give it a confirm by redirecting to confirm URL (FIXME later)
         # redirect url(:entry, @entry)
-        redirect '/'
+        redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
       else
         # render :action => :new
         render :inline => "Errors creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"

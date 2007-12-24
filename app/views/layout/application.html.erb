@@ -44,16 +44,18 @@
 				<ul>
 					<li>Have you or someone you love been rickroll'd? <br />
 						Submit the URL below. </li>
-					<li>Protect yourself using Firefox + <a href="https://addons.mozilla.org/en-US/firefox/addon/1865">Adblock Plus</a> 
+					<li>Protect yourself by using Firefox, installing <a href="https://addons.mozilla.org/en-US/firefox/addon/1865">Adblock Plus</a>, 
 						and subscribing to the ricklist</li>
 					<li>Help verify the database by confirming or disputing entries</li>
-					<li>What's a rickroll? => <a href="http://youtube.com/watch?v=KT--CsBh5TM" title="Rickroll 101, narrp">intro video</a>, narrp.</li>
+					<li>What's a rickroll? => <a href="http://youtube.com/watch?v=KT--CsBh5TM" title="Rickroll 101, narrp">intro video</a> (narrp)</li>
 			</div>
 
 			<div id="ricklist">
 				<%= link_to 'Subscribe w/ Adblock Plus', 'abp://subscribe/?location=http%3A%2F%2Frickrolldb.com%2Fricklist.txt&title=RickrollDB/ricklist.txt', :class => 'subscribe' %>
-				<%= link_to 'RICKLIST.TXT', '/ricklist.txt', :class => 'ricklist' %>
-				<%= link_to 'bookmarklet', 'javascript:void(0);', :class => 'ricklist' %>
+				<!-- <%= link_to 'RICKLIST.TXT', '/ricklist.txt', :class => 'ricklist' %> -->
+
+				<br /><br />
+				<%= link_to 'bookmarklet', bookmarklet_url, :class => 'ricklist' %>
 			</div>
 			
 			<br class="clear" />

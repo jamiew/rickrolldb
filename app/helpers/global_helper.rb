@@ -2,6 +2,12 @@ module Merb
   module GlobalHelper
     # helpers defined here available to all views.  
 
+
+    # site-related
+    def site_url
+      "rickrolldb.com"
+    end
+
     # user-related
     def anonymous
       User.new(:name => 'anonymous')
@@ -19,6 +25,11 @@ module Merb
     # URL shortcuts -- Merb could use a model func for generating its ID, TODO
     def entry_url(entry)
       url( :entry, :id => entry.id_for_url )
+    end
+
+    # bookmarklet URL
+    def bookmarklet_url
+      "javascript:location.href='http://#{site_url}/entries/new?url='+encodeURIComponent(location.href);"
     end
 
     # railsisms
