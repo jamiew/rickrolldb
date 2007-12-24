@@ -15,7 +15,12 @@ class Entry < ActiveRecord::Base
   
   def blacklist_url
     raw = url.gsub(/^http\:\/\//, '').gsub(/^www\./, '').gsub(/\/$/, '')
-    "*#{raw}*#body"
+    if url =~ /youtube\.com/
+      ytid = url.scan(/v=([^&]+)/)[0].to_s # TESTME
+      "youtube.com/get_video?video_id=#{ytid}"
+    else # it's a full domain name, let's saw
+      "#{raw}#body"
+    end
   end
   
   def id_for_url
