@@ -6,31 +6,14 @@
 	<link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8">
 	
 	<script src="/javascripts/jquery.pack.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" charset="utf-8">
-		$(document).ready(function(){
-
-			// clear input on click
-			$('input.clear-on-click').click(function(){
-				$(this).val('');
-			});
-			
-			// editable name
-			$('.editable').click(function(){
-				var name = prompt("What is your name?");
-				$(this).html(name);
-				// set cookie, hidden form field
-			});
-			
-			// TODO hijax voting links, comments
-			
-		});
-	</script>
+	<script src="/javascripts/jquery.dimensions.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/javascripts/rickrolldb.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
 	<div id="container">
-	  <div id="header">
 		
+	  <div id="header">
 		
 			<div id="title">
 				<a href="/"><img src="/images/rick-donotwant-slice-sm.jpg" alt="Rickroll: do not want" title="Rickroll: do not want." border="0" class="logo left" /></a>
@@ -40,6 +23,11 @@
 				<h2>Saving the Internets... one roll at a time.</a></h2>
 			</div>
 	
+			<!-- status -->
+			<div id="loading"><img src="/images/loading.gif" alt="Loading..." title="Loading..." /></div>
+			<div id="flash"></div>
+	
+			<!-- aboot -->
 			<div id="about" class="clear">
 				<ul>
 					<li>Have you or someone you love been rickroll'd? <br />
@@ -50,6 +38,7 @@
 					<li>What's a rickroll? => <a href="http://youtube.com/watch?v=KT--CsBh5TM" title="Rickroll 101, narrp">intro video</a> (narrp)</li>
 			</div>
 
+			<!-- linx -->
 			<div id="ricklist">
 				<%= link_to 'Subscribe w/ Adblock Plus', 'abp://subscribe/?location=http%3A%2F%2Frickrolldb.com%2Fricklist.txt&title=RickrollDB/ricklist.txt', :class => 'subscribe' %>
 				<!-- <%= link_to 'RICKLIST.TXT', '/ricklist.txt', :class => 'ricklist' %> -->
@@ -61,6 +50,7 @@
 			<br class="clear" />
 			
 	  </div>
+		
   
 	  <div id="main">		
 	    <%= catch_content :layout %>

@@ -106,7 +106,10 @@ class Entries < Application
 
     # redirect url(:entry, @entry)
     if request.xhr?
-      render :inline => 'flagged for great justice'
+
+      siblings = Flag.find(:all, :conditions => "entry_id = '#{flag.entry_id}' AND name = '#{flag.name}'")
+      puts "WE BE REQUESTING #{siblings.length}"
+      render :text => siblings.length.to_s, :layout => false
     else
       redirect url('/')
     end

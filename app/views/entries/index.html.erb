@@ -51,8 +51,8 @@
 			<!-- <div class="comments"><%= link_to "comments (#{entry.comments.length})", entry_url(entry) %></div> -->
 
 			<div class="flags">
-				<span class="confirm"><code>+</code> <%= link_to "confirm", url(:confirm_entry, entry) %> (<%= entry.confirmations.length %>)</span>
-				<span class="dispute"><code>-</code> <%= link_to "dispute", url(:dispute_entry, entry) %> (<%= entry.disputes.length %>)</span>
+				<span class="confirm"><code>+</code> <%= link_to "confirm", url(:confirm_entry, entry), :class => 'flag hijax' %> (<strong class="count"><%= entry.confirmations.length %></strong>)</span>
+				<span class="dispute"><code>-</code> <%= link_to "dispute", url(:dispute_entry, entry), :class => 'flag hijax' %> (<strong class="count"><%= entry.disputes.length %></strong>)</span>
 			</div>
 		
 		</li>
