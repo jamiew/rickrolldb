@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 5) do
     t.integer "user_id"
     t.string  "name"
     t.string  "value"
+    t.string  "ip"
   end
 
   create_table "users", :force => true do |t|

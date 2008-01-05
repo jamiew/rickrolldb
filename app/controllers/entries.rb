@@ -98,7 +98,8 @@ class Entries < Application
         
     ip = request.remote_ip
     puts "ip = #{ip}"
-    flag = Flag.find_or_initialize_by_ip(ip)
+    flag = Flag.find_or_initialize_by_entry_id_and_ip(@entry.id, ip)
+    puts flag.inspect
     if flag.new_record?
       flag.name = params[:flag_name]
       # user id?
