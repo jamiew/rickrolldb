@@ -94,25 +94,34 @@ class Entries < Application
   end
     
   def flag # TODO
-    puts "IN FLAG...."
-    puts params.inspect
     @entry = Entry.find(params[:id])
-    flag = Flag.new(:name => params[:flag_name])
-    puts flag.inspect
-    flag.save    
-    @entry.flags << flag
-    @entry.updated_at = Time.now
-    @entry.save
-
+        
+    ip = request.remote_ip
+    puts "ip = #{ip}"
+    flag = Flag.find_or_initialize_by_ip(ip)
+    if flag.new_record?
+      flag.name = params[:flag_name]
+      # user id?
+      flag.save
+      @entry.flags << flag
+      @entry.updated_at = Time.now
+      @entry.save
+    else
+      raise "You've already flagged this entry, sosorry. Your IP: #{ip}"
+    end
+      
     # redirect url(:entry, @entry)
     if request.xhr?
-
       siblings = Flag.find(:all, :conditions => "entry_id = '#{flag.entry_id}' AND name = '#{flag.name}'")
-      puts "WE BE REQUESTING #{siblings.length}"
       render :text => siblings.length.to_s, :layout => false
     else
       redirect url('/')
     end
+  
+  rescue
+    puts "Problem w/ yr flag sucka: #{$!}"
+    render :text => $!.to_s, :layout => :false
+  
   end
   
   

@@ -14,7 +14,7 @@ module Merb
     end
 
     def current_user
-      session[:user] || anonymous
+      session.nil? ? anonymous : session[:user]
     end
     
     def logged_in?

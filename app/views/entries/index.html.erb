@@ -29,10 +29,10 @@
 	</h2>
 
 	<ul>
-	<% @entries.each do |entry| -%>
+	<% @entries.sort_by { |e| e.controversy }.each do |entry| -%>
 		<li>
 			<div class="info">
-				<img src="/images/screenshot-default.png" alt="" title="" class="screenshot" />
+				<img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" />
 			
 				<% 
 					limit = 40
