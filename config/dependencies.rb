@@ -1,9 +1,9 @@
 # Make the app's "gems" directory a place where gems are loaded from
 Gem.clear_paths
-Gem.path.unshift(MERB_ROOT / "gems")
+Gem.path.unshift(Merb.root / "gems")
 
 # Make the app's "lib" directory a place where ruby files get "require"d from
-$LOAD_PATH.unshift(MERB_ROOT / "lib")
+$LOAD_PATH.unshift(Merb.root / "lib")
 
 ### Merb doesn't come with database support by default.  You need
 ### an ORM plugin.  Install one, and uncomment one of the following lines,
@@ -25,6 +25,11 @@ use_orm :activerecord
 use_test :rspec
 
 ### Add your other dependencies here
+require 'merb_helpers'
+require 'htmlentities'
+require 'map_by_method'
+#require 'pp'
+
 
 # These are some examples of how you might specify dependencies.
 # 
@@ -34,12 +39,7 @@ use_test :rspec
 # OR
 # dependencies "RedCloth" => "> 3.0", "ruby-aes-cext" => "= 1.0"
 
-
-require 'htmlentities'
-#require 'map_by_method'
-#require 'pp'
-
-Merb::Server.after_app_loads do
+Merb::BootLoader.after_app_loads do
   ### Add dependencies here that must load after the application loads:
 
   # dependency "magic_admin" # this gem uses the app's model classes

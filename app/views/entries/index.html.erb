@@ -3,14 +3,8 @@
 <div id="add">
 	<form method="POST" action="<%= url(:entries) %>">
 		<% entry = Entry.new %>
-		<%= control_for entry, :url, :text, :label => 'Rickroll URL', :size => 25, :class => 'large required clear-on-click', :value => 'http://' %>
-		<%#= control_for entry, :title, :text, :label => 'Title', :size => 20, :class => 'optional' %>
-	
-		<%# user = User.new %>
-		<%#= control_for user, :name, :text, :label => 'Your name', :size => 20, :class => 'optional' %>
-		<%#= control_for user, :email, :text, :label => 'Email', :size => 20, :class => 'optional' %>		
-		<%#= control_for user, :website, :text, :label => 'Website', :size => 20, :class => 'optional' %>
-	
+		<label for="entry[url]">Rickroll URL</label>
+		<input type="text" name="entry[url]" size="25" class="large required clear-on-click" value="http://" />
 		<input type="submit" name="submit" value="submit" class="submit" />
 	</form>
 		
