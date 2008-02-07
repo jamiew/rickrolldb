@@ -26,7 +26,7 @@
 	<ul>
 	<% @entries.sort_by { |e| e.controversy }.each do |entry| -%>
 		<li>
-			<a href="<%= url %>"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
+			<a href="<%= entry.url %>"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
 			
 			<div class="info">			
 				<% 
