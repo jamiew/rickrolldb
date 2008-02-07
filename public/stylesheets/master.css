@@ -28,6 +28,10 @@ a:hover {
   background-color: #fff;
   text-decoration: underline;
 }
+a img {
+  border: 0;
+}
+
 
 em {
   padding: 1px 1px;
