@@ -30,7 +30,7 @@ Merb::Router.prepare do |r|
   end
   
   # blacklist
-  r.match('/ricklist.txt').to(:controller => 'entries', :action =>'index', :format => 'txt')
+  r.match('/ricklist.txt').to(:controller => 'entries', :action =>'index', :format => 'text')
   
   r.resources :user do |users|
     # users.resources :entries, :prefix => 'user_'

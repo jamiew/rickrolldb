@@ -15,3 +15,6 @@ Merb::BootLoader.load_application
 # Load environment-specific configuration
 environment_config = File.join(Merb.root, 'config', 'environments', Merb.environment + '.rb')
 require environment_config if File.exist?(environment_config)
+
+# add new MIME types
+Merb.add_mime_type(:pdf, :to_pdf, %w[application/pdf], "Content-Encoding" => "gzip")

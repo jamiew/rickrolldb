@@ -1,5 +1,5 @@
 class Entries < Application
-  provides :xml, :js, :yaml, :txt, :text
+  provides :xml, :js, :yaml, :text
   
   def index
     puts "getting entries...."

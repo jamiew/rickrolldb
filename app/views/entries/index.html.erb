@@ -45,25 +45,41 @@
 
 			<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
 			<div class="flags">				
-				<span class="confirm"><code>+</code> <%= link_to "RICKROLL !!1", url(:confirm_entry, entry), :class => 'flag hijax' if new_voter %> (<strong class="count"><%= entry.confirmations.length %></strong>)</span>
-				<span class="dispute"><code>-</code> <%= link_to "not a rickroll", url(:dispute_entry, entry), :class => 'flag hijax' if new_voter %> (<strong class="count"><%= entry.disputes.length %></strong>)</span>				
-				<% if not new_voter %><h5>Thanks for your vote, <%= request.remote_ip %></h5><% end %>
-			</div>
-		</div> <!-- removeme -->
+				<span class="confirm"><code>+</code> 
+				  <% if new_voter %>
+				    <%= link_to "IT'S A RICKROLL", url(:confirm_entry, entry), :class => 'flag hijax' %> 
+			    <% else %>
+			      <strong>confirmations:</strong>
+			    <% end %>
+			    <strong class="count"><%= entry.confirmations.length %></strong>
+		    </span>
+				<span class="dispute"><code>-</code> 
+				  <% if new_voter %>
+  				  <%= link_to "not a rickroll", url(:dispute_entry, entry), :class => 'flag hijax' if new_voter %> 
+  				<% else %>
+  				  <strong>disputes:</strong>
+  				<% end %>
+				  <strong class="count"><%= entry.disputes.length %></strong>
+				</span>			
+			</div> <!-- /.flags -->
+
 			<div class="stats">
 				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
-				<% width = 130; height = 14 #FIXME %>
+				<% width = 310; height = 10 #FIXME %>
 				<% disputage = entry.controversy %>
-				<div style="float: right; display: inline; width: <%= width -  1 %>px; height: 3px; background-color: #aaa;">&nbsp;</div>
-				<div style="float: right; clear: right;display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; background-color: #fbb;">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
-				<div style="float: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;  background-color: #bfb;"><span>&nbsp;<%#= ("%.2f" % disputage) %></span></div>
+				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">&nbsp;</div>
+				<div style="float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;  background-color: #bfb;">&nbsp;<%#= ("%.2f" % disputage) %></div>
+				<div style="float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; background-color: #fbb;">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
 			</div> <!-- /.stats -->
 
-
+      <span class="thanks"><% if not new_voter %><em>Thanks for your vote, <%= request.remote_ip %></em><% end %></span>
+      
 			<!-- <div class="comments permalink">
 				<%= link_to "comments (#{entry.comments.length}) &#8734;", entry_url(entry) %>
 			</div>	 -->
+
 		
+  	  </div> <!-- /.info -->
 		</li>
 	
 	
