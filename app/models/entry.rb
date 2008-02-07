@@ -50,8 +50,8 @@ class Entry < ActiveRecord::Base
   def thumbnail
     width = 250
     
-    puts Merb.root+"public"+local_thumbnail
-    if File.exists?(local_thumbnail_path) #use ours if we've got it
+    #if File.exists?(local_thumbnail_path) #use ours if we've got it
+    if false
       local_thumbnail
     else #fallback to thumbnail service
       "http://www.thumbalizr.com/api/?url=http://#{url.gsub(/^http\:\/\//,'')}&width=#{width}"

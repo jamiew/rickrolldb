@@ -17,16 +17,17 @@
 
 <div id="entries">
 	<h2>
+          <a class="floatRight" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
+
 	  The Culprits 
 	  <br />
 	  <small><%= @entries.length %> submitted; <%= @entries.select { |e| e.confirmed? }.length %> confirmed</small>
 	</h2>
 
-	<% puts "doing entries..." %>
 	<ul>
 	<% @entries.sort_by { |e| e.controversy }.each do |entry| -%>
 		<li>
-			<a href="<%= entry.url %>"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
+			<a href="<%= entry.url %>" border="0"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" border="0" /></a>
 			
 			<div class="info">			
 				<% 
