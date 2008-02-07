@@ -6,8 +6,15 @@ class Entries < Application
     render @entries
   end
   
+  def xml # FIXME should be raw XML, use .rss
+    @entries = Entry.find(:all, :include => [:flags, :comments], :order => 'updated_at DESC', :limit => 12)
+    render @entries
+  end
+    
+  
   def show
-    id = params[:id].gsub('DOT', '.')
+    coder = HTMLEntities.new
+    id = coder.decode( params[:id], :decimal)
     @entry = Entry.find_by_url(id, :include => [:flags, :comments])
 
     # also try w/ http:// prefix (DEPRECATED)
@@ -46,13 +53,13 @@ class Entries < Application
       if @entry.save
         # also give it a confirm by redirecting to confirm URL (FIXME later)
         # redirect url(:entry, @entry)
-        redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
+        redirect url(:controller => :entries, :action => :confirm, :id => @entry.url)
       else
         # render :action => :new
         render :inline => "Errors creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
       end
     else #already exists, just add a confirm
-      redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
+      redirect url(:controller => :entries, :action => :confirm, :id => @entry.url)
     end
   end
   
@@ -108,7 +115,8 @@ class Entries < Application
       @entry.updated_at = Time.now
       @entry.save
     else
-      raise "You've already flagged this entry, sosorry. Your IP: #{ip}"
+      # raise "You've already flagged this entry, sosorry. Your IP: #{ip}"
+      raise "nil"
     end
       
     # redirect url(:entry, @entry)

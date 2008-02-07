@@ -39,6 +39,11 @@ require 'map_by_method'
 # OR
 # dependencies "RedCloth" => "> 3.0", "ruby-aes-cext" => "= 1.0"
 
+require 'htmlentities'
+#require 'map_by_method'
+#require 'pp'
+
+
 Merb::BootLoader.after_app_loads do
   ### Add dependencies here that must load after the application loads:
 

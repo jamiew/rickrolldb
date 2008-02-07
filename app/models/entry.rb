@@ -14,14 +14,15 @@ class Entry < ActiveRecord::Base
   end
     
   def confirmed?
-    confirmations.length > disputes.length
+    confirmations.length - 2 > disputes.length
   end
 
-  # score for how disputed it is
+  # round for how disputed it is
   def controversy
-    confirmations.length / disputes.length
-  rescue ZeroDivisionError
+    # disputes.length < confirmations.length ? disputes.length.to_f/confirmations.length.to_f : confirmations.length.to_f / disputes.length.to_f
     1
+  rescue ZeroDivisionError
+    0
   end
   
   def blacklist_url
@@ -37,11 +38,15 @@ class Entry < ActiveRecord::Base
   
   def id_for_url
     coder = HTMLEntities.new
-    coder.encode( url.gsub('http://', '').gsub('.', 'DOT'), :decimal)
+    puts coder.encode(url, :named)       # => "&lt;&eacute;lan&gt;"
+    puts coder.encode(url, :decimal)     # => "&#60;&#233;lan&#62;"
+    puts coder.encode(url, :hexadecimal) # => "&#x3c;&#xe9;lan&#x3e;"
+    coder.encode( url.gsub('http://', ''), :decimal)
   end
+  alias :stub :id_for_url
   
   def thumbnail
-    width = 50
+    width = 250
     "http://www.thumbalizr.com/api/?url=http://#{url.gsub(/^http\:\/\//,'')}&width=#{width}"
   rescue
     "/images/screenshot-default.png"

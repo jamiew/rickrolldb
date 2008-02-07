@@ -18,7 +18,8 @@ body {
 }
 
 a {
-  color: #dbb;
+  color: #ff9988;
+	text-shadow: #666666 5px 5px 5px;
   text-decoration: none;
   border-bottom: 1px dotted #cbc;
 }
@@ -26,6 +27,13 @@ a:hover {
   color: #4d9b12;
   background-color: #fff;
   text-decoration: underline;
+}
+
+em {
+  padding: 1px 1px;
+  font-style: normal;
+  background-color: #cc6655;
+  color: #efefef;
 }
 
 h1, h2, h3 {
@@ -83,7 +91,7 @@ p {
 #container {
   width: 550px;
   text-align: left;
-  background-color: #333;
+  background-color: #595360;
   margin-right: auto;
   margin-left: auto;
   border: 3px solid #000;
@@ -196,7 +204,7 @@ p {
   font-size: 12pt;
 }  
 #ricklist a.ricklist {
-  width: 100px;
+  width: 120px;
   font-size: 10pt;
   padding: 5px 2px;
   border: 2px solid transparent;
@@ -283,35 +291,70 @@ p {
   
 }
 #entries ul li {
-  height: 50px;
+  height: 200px;
   overflow: hidden;
   padding-right: 10px;
+  margin-top: 12px;
 }
 #entries ul li img {
+
   float: left;
   border: 1px solid #999;
   margin-right: 10px;
-  height: 40px; /* sometimes up to 60px */
+  height: 180px; /* sometimes up to 60px */
+  width: 180px;
 }
 #entries ul .info {
-  float: left;
+  margin-left: 200px;
+  font-size: 130%;
 }
 #entries ul /*.info*/ span {
   display: block;
   margin-bottom: 4px;
 }
+/* some colors */
+#entries .title, #entries .created_at, 
 #entries .flags, #entries .comments {
-  float: right;
-  margin: 0 0 0 20px;
+  text-align: left;
+  background-color: #69635a;  
+}
+#entries .flags {
+  margin-top: 12px;  
 }
 #entries .created_at {
   font-size: 8pt;
 }
-
-span.confirm {
-  color: #aca;
+#entries .comments {
 }
-span.dispute {
-  color: #caa;
+.title {
+  font-weight: bold;
+  font-size: 11pt;  
+}  
+.dispute a, .confirm a { 
+  padding-left: 24px;
+  font-size: 11pt;
+}
+.confirm a {
+  color: #faa;
+  background: url(/images/rickroll.gif) no-repeat 1px 1px;
+}
+.dispute {
+  margin-top: 12px;
+}  
+.dispute a {
+  font-size: 13pt;
+  color: #aca;
+  background: url(/images/no.gif) no-repeat 2px 1px;  
+}
+
+.stats {
+  margin-top: -40px;
+}
+#entries .comments {
+  float: right;
+  margin-top: 40px;
+}
+.comments, .permalink {
+  display: inline;
 }
 

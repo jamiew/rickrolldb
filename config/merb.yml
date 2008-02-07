@@ -80,3 +80,12 @@
 # If you don't intend to parse JSON, use ActiveSupport, or want to roll your own
 # set this to true, to disable the loading of the JSON gem
 # :disable_json_gem: true
+
+# You can override settings for specific environments by creating a yaml
+# file for that environment in config/environments.  For example, to
+# change the configuration only for development create
+# config/environments/development.yml
+
+# If you don't intend to parse JSON, use ActiveSupport, or want to roll your own
+# set this to true, to disable the loading of the JSON gem
+# :disable_json_gem: true

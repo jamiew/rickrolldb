@@ -25,9 +25,9 @@
 	<ul>
 	<% @entries.sort_by { |e| e.controversy }.each do |entry| -%>
 		<li>
-			<div class="info">
-				<img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" />
+			<a href="<%= url %>"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
 			
+			<div class="info">			
 				<% 
 					limit = 40
 					display = entry.title || entry.url
@@ -40,14 +40,31 @@
 					<% unless entry.updated_at.nil? or entry.created_at == entry.updated_at %>, updated <%= timeago(entry.updated_at) %><% end %>
 				</span>
 				<% unless entry.user.nil? %><span class="created_at">by <%= timeago(entry.user.to_s) %></span><% end %>
-			</div>
-		
-			<!-- <div class="comments"><%= link_to "comments (#{entry.comments.length})", entry_url(entry) %></div> -->
+	
 
-			<div class="flags">
-				<span class="confirm"><code>+</code> <%= link_to "confirm", url(:confirm_entry, entry), :class => 'flag hijax' %> (<strong class="count"><%= entry.confirmations.length %></strong>)</span>
-				<span class="dispute"><code>-</code> <%= link_to "dispute", url(:dispute_entry, entry), :class => 'flag hijax' %> (<strong class="count"><%= entry.disputes.length %></strong>)</span>
+			<% require 'pp' %>
+			<% #pp Flag %>
+			<% pp entry.flags %>
+			<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
+			<div class="flags">				
+				<span class="confirm"><code>+</code> <%= link_to "RICKROLL !!1", url(:confirm_entry, entry), :class => 'flag hijax' if new_voter %> (<strong class="count"><%= entry.confirmations.length %></strong>)</span>
+				<span class="dispute"><code>-</code> <%= link_to "not a rickroll", url(:dispute_entry, entry), :class => 'flag hijax' if new_voter %> (<strong class="count"><%= entry.disputes.length %></strong>)</span>				
+				<% if not new_voter %><h5>Thanks for your vote, <%= request.remote_ip %></h5><% end %>
 			</div>
+		</div> <!-- removeme -->
+			<div class="stats">
+				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
+				<% width = 130; height = 14 #FIXME %>
+				<% disputage = entry.controversy %>
+				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">_</div>
+				<div style="float: right; clear: right;display: inline; width: <%= (1.0-disputage) * width%>px; height: <%= height %>px; background-color: #fbb;"><%= (1.0)-disputage %></div>
+				<div style="float: right; display: inline; width: <%= (disputage) * width %>px; height: <%= height %>px;  background-color: #bfb;"><span><%= disputage %></span></div>
+			</div> <!-- /.stats -->
+
+
+			<!-- <div class="comments permalink">
+				<%= link_to "comments (#{entry.comments.length}) &#8734;", entry_url(entry) %>
+			</div>	 -->
 		
 		</li>
 	

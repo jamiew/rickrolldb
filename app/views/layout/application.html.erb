@@ -30,7 +30,7 @@
 			<!-- aboot -->
 			<div id="about" class="clear">
 				<ul>
-					<li>Have you or someone you love been rickroll'd? <br />
+					<li><em>Have you or someone you love been rickroll'd?</em> <br />
 						Submit the URL below. </li>
 					<li>Protect yourself by using Firefox, installing <a href="https://addons.mozilla.org/en-US/firefox/addon/1865">Adblock Plus</a>, 
 						and subscribing to the ricklist</li>
@@ -44,7 +44,7 @@
 				<!-- <%= link_to 'RICKLIST.TXT', '/ricklist.txt', :class => 'ricklist' %> -->
 
 				<br /><br />
-				<%= link_to 'bookmarklet', bookmarklet_url, :class => 'ricklist' %>
+				<%= link_to 'rickroll-bookmarklet', bookmarklet_url, :class => 'ricklist' %>
 			</div>
 			
 			<br class="clear" />
@@ -67,7 +67,7 @@
 </div>
 
 <!-- stats -->
-<% if MERB_ENV == 'production' -%>
+<% if false == 'production' -%>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
