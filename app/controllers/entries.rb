@@ -1,8 +1,10 @@
 class Entries < Application
-  provides :xml, :js, :yaml, :txt
+  provides :xml, :js, :yaml, :txt, :text
   
   def index
+    puts "getting entries...."
     @entries = Entry.find(:all, :include => [:flags, :comments], :order => 'updated_at DESC')
+    puts "rendering index..."
     render @entries
   end
   

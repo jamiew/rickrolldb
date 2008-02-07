@@ -348,11 +348,11 @@ p {
 }
 
 .stats {
-  margin-top: -40px;
+  margin-top: -65px;
 }
 #entries .comments {
   float: right;
-  margin-top: 40px;
+  margin-top: 65px;
 }
 .comments, .permalink {
   display: inline;

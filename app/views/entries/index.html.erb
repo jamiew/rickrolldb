@@ -22,6 +22,7 @@
 	  <small><%= @entries.length %> submitted; <%= @entries.select { |e| e.confirmed? }.length %> confirmed</small>
 	</h2>
 
+	<% puts "doing entries..." %>
 	<ul>
 	<% @entries.sort_by { |e| e.controversy }.each do |entry| -%>
 		<li>
@@ -53,9 +54,9 @@
 				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
 				<% width = 130; height = 14 #FIXME %>
 				<% disputage = entry.controversy %>
-				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">_</div>
-				<div style="float: right; clear: right;display: inline; width: <%= (1.0-disputage) * width%>px; height: <%= height %>px; background-color: #fbb;"><%= (1.0)-disputage %></div>
-				<div style="float: right; display: inline; width: <%= (disputage) * width %>px; height: <%= height %>px;  background-color: #bfb;"><span><%= disputage %></span></div>
+				<div style="float: right; display: inline; width: <%= width -  1 %>px; height: 3px; background-color: #aaa;">&nbsp;</div>
+				<div style="float: right; clear: right;display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; background-color: #fbb;">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
+				<div style="float: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;  background-color: #bfb;"><span>&nbsp;<%#= ("%.2f" % disputage) %></span></div>
 			</div> <!-- /.stats -->
 
 
