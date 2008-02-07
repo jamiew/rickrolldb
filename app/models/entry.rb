@@ -38,9 +38,6 @@ class Entry < ActiveRecord::Base
   
   def id_for_url
     coder = HTMLEntities.new
-    puts coder.encode(url, :named)       # => "&lt;&eacute;lan&gt;"
-    puts coder.encode(url, :decimal)     # => "&#60;&#233;lan&#62;"
-    puts coder.encode(url, :hexadecimal) # => "&#x3c;&#xe9;lan&#x3e;"
     coder.encode( url.gsub('http://', ''), :decimal)
   end
   alias :stub :id_for_url

@@ -42,9 +42,6 @@
 				<% unless entry.user.nil? %><span class="created_at">by <%= timeago(entry.user.to_s) %></span><% end %>
 	
 
-			<% require 'pp' %>
-			<% #pp Flag %>
-			<% pp entry.flags %>
 			<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
 			<div class="flags">				
 				<span class="confirm"><code>+</code> <%= link_to "RICKROLL !!1", url(:confirm_entry, entry), :class => 'flag hijax' if new_voter %> (<strong class="count"><%= entry.confirmations.length %></strong>)</span>
