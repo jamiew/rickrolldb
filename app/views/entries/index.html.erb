@@ -68,9 +68,11 @@
 				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
 				<% width = 310; height = 10 #FIXME %>
 				<% disputage = entry.controversy %>
+				<% disputage = 1 if disputage == 0 #... %>
+				<% puts disputage %>
 				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">&nbsp;</div>
-				<div style="float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px; background-color: #fbb;">&nbsp;<%#= ("%.2f" % disputage) %></div>
-				<div style="float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; background-color: #bfb;">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
+				<div style="background-color: #fbb; float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;">&nbsp;<%#= ("%.2f" % disputage) %></div>
+				<div style="background-color: #bfb;float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; ">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
 			</div> <!-- /.stats -->
 
       <span class="thanks"><% if not new_voter %><em>Thanks for your vote</em><% end %></span>

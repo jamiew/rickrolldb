@@ -28,6 +28,11 @@ a:hover {
   background-color: #fff;
   text-decoration: underline;
 }
+a img {
+  border: 0;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
 
 em {
   padding: 1px 1px;
@@ -86,10 +91,10 @@ p {
 #container {
   width: 550px;
   text-align: left;
-  background-color: #595360;
+  background-color: #5c5666;
   margin-right: auto;
   margin-left: auto;
-  border: 3px solid #000;
+  border: 3px solid #999;
   border-top: none; border-bottom: none;
 }
 
@@ -313,6 +318,9 @@ p {
   text-align: left;
   background-color: #69635a;  
 }
+#entries .title {
+  font-size: 12pt;
+}
 #entries .flags {
   margin-top: 12px;  
   padding: 3px 0;
@@ -330,17 +338,18 @@ p {
   width: 150px;
   height: 30px;
   float: left;
-  border-bottom: 1px solid #633;
 }
-.stats, .thanks {
-  clear: right;
-}
+
+
 .dispute a, .confirm a { 
   padding-left: 24px;
   font-size: 11pt;
 }
+.confirm {
+  padding-top: 12px;
+}
 .confirm a {
-  color: #faa;
+  color: #aca;
   background: url(/images/rickroll.gif) no-repeat 1px 1px;
 }
 .dispute {
@@ -348,12 +357,13 @@ p {
 }  
 .dispute a {
   font-size: 13pt;
-  color: #aca;
+  color: #faa;
   background: url(/images/no.gif) no-repeat 2px 1px;  
 }
 
 .stats {
-/*  margin-top: -65px;*/
+  clear: right;
+  padding-top: 70px;
   padding-bottom: 20px;
 }
 #entries .comments {
