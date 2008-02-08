@@ -69,11 +69,11 @@
 				<% width = 310; height = 10 #FIXME %>
 				<% disputage = entry.controversy %>
 				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">&nbsp;</div>
-				<div style="float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;  background-color: #bfb;">&nbsp;<%#= ("%.2f" % disputage) %></div>
-				<div style="float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; background-color: #fbb;">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
+				<div style="float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px; background-color: #fbb;">&nbsp;<%#= ("%.2f" % disputage) %></div>
+				<div style="float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; background-color: #bfb;">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
 			</div> <!-- /.stats -->
 
-      <span class="thanks"><% if not new_voter %><em>Thanks for your vote, <%= request.remote_ip %></em><% end %></span>
+      <span class="thanks"><% if not new_voter %><em>Thanks for your vote</em><% end %></span>
       
 			<!-- <div class="comments permalink">
 				<%= link_to "comments (#{entry.comments.length}) &#8734;", entry_url(entry) %>

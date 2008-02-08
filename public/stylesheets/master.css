@@ -66,16 +66,11 @@ p {
 
 
 /******** helpers ********/
-.right {
-  float: right;
-  font-size: 100%;
-  margin-top: 5px;
-}
-.left {
-  float: left;
-  font-size: 100%;
-  margin-top: 5px;
-}
+.left { text-align: left; }
+.right { text-align: right; }
+.center { text-align: center; }
+.floatRight { float: right; }
+.floatLeft { float: left; }
 .clear, .clearer { clear: both; }
 
 /******** status ********/

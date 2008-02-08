@@ -16,7 +16,8 @@ class Entries < Application
   
   def show
     coder = HTMLEntities.new
-    id = coder.decode( params[:id], :decimal)
+    #id = coder.decode( params[:id] )
+    id = params[:id]
     @entry = Entry.find_by_url(id, :include => [:flags, :comments])
 
     # also try w/ http:// prefix (DEPRECATED)

@@ -29,8 +29,9 @@ Merb::Router.prepare do |r|
     entries.resources :flags
   end
   
-  # blacklist
+  # specific routes
   r.match('/ricklist.txt').to(:controller => 'entries', :action =>'index', :format => 'text')
+  r.match(/\/(rss|atom|feed)/).to(:controller => 'entries', :action => 'index', :format => 'xml')
   
   r.resources :user do |users|
     # users.resources :entries, :prefix => 'user_'
