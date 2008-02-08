@@ -24,12 +24,6 @@ use_orm :activerecord
 # use_test :test_unit
 use_test :rspec
 
-### Add your other dependencies here
-require 'merb_helpers'
-require 'htmlentities'
-require 'map_by_method'
-#require 'pp'
-
 
 # These are some examples of how you might specify dependencies.
 # 
@@ -39,9 +33,12 @@ require 'map_by_method'
 # OR
 # dependencies "RedCloth" => "> 3.0", "ruby-aes-cext" => "= 1.0"
 
+require 'rubygems'
+require 'merb_helpers'
 require 'htmlentities'
-#require 'map_by_method'
-#require 'pp'
+require 'map_by_method'
+require 'geoip'
+require 'pp'
 
 
 Merb::BootLoader.after_app_loads do

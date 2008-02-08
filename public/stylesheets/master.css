@@ -28,10 +28,6 @@ a:hover {
   background-color: #fff;
   text-decoration: underline;
 }
-a img {
-  border: 0;
-}
-
 
 em {
   padding: 1px 1px;
@@ -330,6 +326,15 @@ p {
   font-weight: bold;
   font-size: 11pt;  
 }  
+.dispute, .confirm, .dispute a, .confirm a {
+  width: 150px;
+  height: 30px;
+  float: left;
+  border-bottom: 1px solid #633;
+}
+.stats, .thanks {
+  clear: right;
+}
 .dispute a, .confirm a { 
   padding-left: 24px;
   font-size: 11pt;
