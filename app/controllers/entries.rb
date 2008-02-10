@@ -62,7 +62,7 @@ class Entries < Application
         render :inline => "Errors creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
       end
     else #already exists, just add a confirm
-      redirect url(:controller => :entries, :action => :confirm, :id => @entry.url)
+      redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
     end
   end
   

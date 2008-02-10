@@ -20,7 +20,7 @@ class Entry < ActiveRecord::Base
   # round for how disputed it is
   def controversy
     disputes.length < confirmations.length ? disputes.length.to_f/confirmations.length.to_f : confirmations.length.to_f / disputes.length.to_f
-  rescue ZeroDivisionError
+  rescue ##ZeroDivisionError
     0
   end
   

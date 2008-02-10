@@ -25,6 +25,8 @@ Merb::Router.prepare do |r|
   # r.resources :posts
   
   r.resources :entries, :member => {:confirm => :get, :dispute => :get} do |entries|
+  #r.match(/\/entries\/confirm\/(.*)/).to(:controller => 'entries', :action => 'confirm', :id => "[1]")
+  #r.resources :entries, :member => {:dispute => :get} do |entries|
     entries.resources :comments
     entries.resources :flags
   end
