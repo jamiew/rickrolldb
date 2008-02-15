@@ -2,9 +2,9 @@
 # This is a sample database file for the ActiveRecord ORM
 :development: &defaults
   :adapter: mysql
-  :database: rickrolldb_dev
-  :username: root
-  :password: 
+  :database: rickrolldb_prod
+  :username: eyebeam
+  :password: eyebeam3
   :host: localhost
 
 :test:

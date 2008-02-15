@@ -45,7 +45,7 @@ class Entries < Application
     puts params.inspect
     url = params[:url] || params[:entry][:url]
     raise "No URL specified!" if url.nil? or url.empty?
-    url.gsub!('http://', '') rescue nil
+    url.gsub(/\/$/, '').gsub!('http://', '') rescue nil
     puts "final url = #{url}"
     
     # create if it doesn't exist, in slightly ghetto fashion
@@ -54,9 +54,8 @@ class Entries < Application
       @entry = Entry.new(params[:entry])
       @entry.url = url if @entry.url != url #checking in case we're not using params[:entry][:url] which behaves funny
       if @entry.save
-        # also give it a confirm by redirecting to confirm URL (FIXME later)
-        # redirect url(:entry, @entry)
-        redirect url(:controller => :entries, :action => :confirm, :id => @entry.url)
+        # also give it a confirm by redirecting to confirm URL
+        redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
       else
         # render :action => :new
         render :inline => "Errors creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
