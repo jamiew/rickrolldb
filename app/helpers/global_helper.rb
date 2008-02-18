@@ -24,7 +24,8 @@ module Merb
 
     # URL shortcuts -- Merb could use a model func for generating its ID, TODO
     def entry_url(entry)
-      url( :entry, :id => entry.stub )
+      #url( :entry, :id => entry.stub )
+      url( :entry, :id => entry.id )
     end
 
     # bookmarklet URL

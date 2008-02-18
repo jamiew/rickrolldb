@@ -23,7 +23,7 @@ class Entries < Application
     # also try w/ http:// prefix (DEPRECATED)
     @entry ||= Entry.find_by_url('http://'+id, :include => [:flags, :comments])
     
-    # finally
+    # finally try by ID
     @entry ||= Entry.find(params[:id], :include => [:flags, :comments])
     render @entry
   end
