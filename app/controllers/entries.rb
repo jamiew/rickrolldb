@@ -2,9 +2,7 @@ class Entries < Application
   provides :xml, :js, :yaml, :text
   
   def index
-    puts "getting entries...."
     @entries = Entry.find(:all, :include => [:flags, :comments], :order => 'updated_at DESC')
-    puts "rendering index..."
     render @entries
   end
   
@@ -31,7 +29,7 @@ class Entries < Application
   def new
     #only_provides :html_escape
     if not params[:url].empty? # called via bookmarklet
-      puts "going to create from passed URL..."
+      puts "going to create entry from passed URL #{params[:url]} ..."
       create
     else 
       @entry = Entry.new(params[:entry])
