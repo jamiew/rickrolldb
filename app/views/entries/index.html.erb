@@ -32,7 +32,7 @@
 			<div class="info">			
 				<% 
 					limit = 40
-					display = (entry.title || entry.url).gsub(/\/$/,'')
+					display = (entry.title || entry.url).gsub(/\/$/,'').gsub(/^http\:\/\//,'')
 					display = display.length > limit ? display[0..limit]+'...' : display
 					url = (entry.url =~ /^http/) ? entry.url : "http://#{entry.url}"
 				-%>
