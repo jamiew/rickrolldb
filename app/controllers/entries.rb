@@ -43,7 +43,7 @@ class Entries < Application
     puts params.inspect
     url = params[:url] || params[:entry][:url]
     raise "No URL specified!" if url.nil? or url.empty?
-    url.gsub(/\/$/, '').gsub!('http://', '') rescue nil
+    url.gsub!(/^http\:\/\//, '')
     puts "final url = #{url}"
     
     # create if it doesn't exist, in slightly ghetto fashion
