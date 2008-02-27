@@ -11,11 +11,18 @@ content = RSS::Maker.make("2.0") { |m|
   @entries.each { |entry|
     i = m.items.new_item
     i.title = entry.url
-    i.link = entry_url(entry)
+    i.link = entry.url
     last_flag = entry.flags.last
     i.description = "
-    contributor #{last_flag.ip} flagged: #{last_flag.name}
-    now #{entry.confirmations.length} yeas, #{entry.disputes.length} nays"
+<![CDATA[	
+    contributor #{last_flag.ip} <br />
+    action: #{last_flag.name} <br />
+    #{entry.confirmations.length} yeas, #{entry.disputes.length} nays <br />
+    blacklisted?: #{entry.confirmed?} <br />
+
+    <img src=\"#{entry.thumbnail}\" /> <br />
+]]>
+"
     #{
     #i.date = Time.now # they don't give us a time, bastards
     i.date = last_flag.timestamp

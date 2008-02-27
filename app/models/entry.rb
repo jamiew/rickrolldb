@@ -30,7 +30,7 @@ class Entry < ActiveRecord::Base
       ytid = url.scan(/v=([^&]+)/)[0].to_s # TESTME
       "youtube.com/get_video?video_id=#{ytid}"
     else # it's a full domain name, let's saw
-      "#{raw}#object\n#{raw}#embed\n#{raw}#script"
+      "#{raw}#body\n#{raw}#script"
     end
   end
   
