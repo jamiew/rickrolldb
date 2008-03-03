@@ -14,6 +14,8 @@ $LOAD_PATH.unshift(Merb.root / "lib")
 
 ### Uncomment for ActiveRecord ORM
 use_orm :activerecord
+ActiveRecord::Base.verification_timeout = 10000
+#ActiveRecord::Base.allow_concurrency = true
 
 ### Uncomment for Sequel ORM
 # use_orm :sequel
