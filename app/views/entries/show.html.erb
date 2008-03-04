@@ -1,4 +1,9 @@
 <h2>Rickroll info</h2>
+
+<div class="floatRight">
+  <img src="<%= @entry.thumbnail %>" alt="" />
+</div>
+
 <ul class="entry-info">
   <li>URL: <%= @entry.url %></li>
   <li>Title: <%= @entry.title || "(nil)" %></li>
@@ -14,7 +19,7 @@
 <% end -%>
 </ul> <!-- /ul.flags -->
 
-<h2>Comments</h2>
+<h2 class="clear">Comments</h2>
 <a name="comments"></a>
 <div class="comments">
   <div id="disqus_thread"></div>
