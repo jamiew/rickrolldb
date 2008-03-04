@@ -53,7 +53,8 @@ class Entries < Application
       @entry.url = url if @entry.url != url #checking in case we're not using params[:entry][:url] which behaves funny
       if @entry.save
         # also give it a confirm by redirecting to confirm URL
-        redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
+        #redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
+	redirect url(:controller => :entries, :action => :show, :id => @entry.id)
       else
         # render :action => :new
         render :inline => "Errors creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
@@ -122,7 +123,7 @@ class Entries < Application
     # redirect url(:entry, @entry)
     if request.xhr?
       siblings = Flag.find(:all, :conditions => "entry_id = '#{flag.entry_id}' AND name = '#{flag.name}'")
-      render :text => siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .flags a').fadeOut();</script>, :layout => false
+      render :text => siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .flags a').fadeOut();</script>", :layout => false
     else
       redirect url('/')
     end
@@ -130,7 +131,6 @@ class Entries < Application
   rescue
     puts "Problem w/ yr flag sucka: #{$!}"
     render :text => $!.to_s, :layout => :false
-  
   end
   
   
