@@ -45,7 +45,7 @@
 	
 
 			<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
-			<div class="flags">				
+			<div class="flags">			
 				<span class="confirm"><code>+</code> 
 				  <% if new_voter %>
 				    <%= link_to "IT'S A RICKROLL", url(:confirm_entry, entry), :class => 'flag hijax' %> 
@@ -65,6 +65,11 @@
 			</div> <!-- /.flags -->
 
 		      <span class="thanks"><% if not new_voter %><em>Thanks for your vote</em><% end %></span>
+
+			<div class="comments">
+		   	<%= link_to "Comments", url(:entry, entry)+"#comments" %>
+			</div> <!-- /.comments -->
+
 
 
 			<div class="stats">
@@ -92,3 +97,20 @@
 	<% end -%>
 	</ul>
 </div> <!-- /#entries -->
+
+
+<!-- add disqus comment counts -->
+<script type="text/javascript">
+//<[CDATA[
+(function() {   
+                links = document.getElementsByTagName('a');
+                query = '?';
+                for(var i = 0; i < links.length; i++) {
+                        if(links[i].href.indexOf('#comments') >= 0) {
+                                query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+                        }
+                }
+                document.write('<script type="text/javascript" src="http://disqus.com/forums/rickrolldb/get_num_replies.js' + query + '"></' + 'script>');
+        })();
+//]]>
+</script>

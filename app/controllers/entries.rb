@@ -115,8 +115,8 @@ class Entries < Application
       @entry.updated_at = Time.now
       @entry.save
     else
-      # raise "You've already flagged this entry, sosorry. Your IP: #{ip}"
-      raise "nil"
+      # raise "You've already flagged this entry. Your IP: #{ip}"
+      raise "already voted"
     end
       
     # redirect url(:entry, @entry)

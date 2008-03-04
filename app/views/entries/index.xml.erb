@@ -20,10 +20,8 @@ content = RSS::Maker.make("2.0") { |m|
     #{entry.confirmations.length} yeas, #{entry.disputes.length} nays <br />
     blacklisted?: #{entry.confirmed?} <br />
 
-    <img src=\"#{entry.thumbnail}\" /> <br />
-]]>
+    <img src=\"#{entry.thumbnail}\" /> <br /> ]]>
 "
-    #{
     #i.date = Time.now # they don't give us a time, bastards
     i.date = last_flag.timestamp
   }

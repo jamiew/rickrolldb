@@ -19,7 +19,7 @@ body {
 
 a {
   color: #ff9988;
-	text-shadow: #666666 5px 5px 5px;
+  text-shadow: #666666 5px 5px 5px;
   text-decoration: none;
   border-bottom: 1px dotted #cbc;
 }
@@ -37,8 +37,8 @@ a img {
 em {
   padding: 1px 1px;
   font-style: normal;
-  background-color: #cc6655;
-  color: #efefef;
+  background-color: #6f6979;
+  color: #ffefdf;
 }
 
 h1, h2, h3 {
@@ -318,6 +318,9 @@ p {
   text-align: left;
   background-color: #69635a;  
 }
+#entries .flags a {
+  border: 0;
+}
 #entries .title {
   font-size: 12pt;
 }
@@ -363,12 +366,14 @@ p {
 
 .stats {
   clear: right;
-  padding-top: 40px;
+  padding-top: 10px;
   padding-bottom: 20px;
 }
 #entries .comments {
   float: right;
-  margin-top: 65px;
+  font-size: 1.3em;
+  margin-top: 10px;
+  text-transform: lowercase;
 }
 .comments, .permalink {
   display: inline;
@@ -378,4 +383,12 @@ p {
   margin-left: 5px;
   font-size: 120%;
   color: #eef; 
+}
+
+.entry-info ul {
+  padding: 0 0 20px 20px;
+}
+.entry-info ul li {
+  padding-bottom: 2px;
+  font-size: 1.1em;
 }

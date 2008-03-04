@@ -1,19 +1,26 @@
 <h2>Rickroll info</h2>
 <ul class="entry-info">
-	<li>URL: <%= @entry.url %></li>
-	<li>Title: <%= @entry.title || "(nil)" %></li>
-	<li>Submitted <%= timeago(@entry.created_at) %>, on <%= @entry.created_at.strftime('%D %I:%m(pm/am)') %></li>
-	<li>By <%= @entry.user || "(anonymous)" %></li>
+  <li>URL: <%= @entry.url %></li>
+  <li>Title: <%= @entry.title || "(nil)" %></li>
+  <li>Submitted <%= timeago(@entry.created_at) %>, on <%= @entry.created_at.strftime('%D %I:%m(pm/am)') %></li>
+  <li>By <%= @entry.user || "(anonymous)" %></li>
 </ul>
 
 <h2>Flags</h2>
 <ul class="flags">
 <%= "none" if @entry.flags.empty? %>
 <% @entry.flags.each do |flag| -%>
-	<li><%= flag.name %>: <%= flag.value %></li>
-<% end -%>	
+  <li><%= flag.name %>: <%= flag.value %> by <%= flag.user || 'anonymous' %></li>
+<% end -%>
+</ul> <!-- /ul.flags -->
 
 <h2>Comments</h2>
+<a name="comments"></a>
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript" src="http://disqus.com/forums/rickrolldb/embed.js"></script>
+  <noscript><a href="http://rickrolldb.disqus.com/?url=ref">Comments.</a></noscript>
+
 <%= "none" if @entry.comments.empty? %>
 <ul>
 <% @entry.comments.each do |flag| -%>
@@ -23,3 +30,5 @@
 		<p class="comment-body"><%= comment.body %>: <%= flag.value %></p>
 	</li>
 <% end -%>	
+</div> <!-- /.comments -->
+
