@@ -26,7 +26,7 @@
 
 	<ul>
 	<% @entries.sort_by { |e| e.created_at }.reverse.each do |entry| -%>
-		<li>
+		<li id="entry-<%= entry.id %>">
 			<a href="http://<%= entry.url %>"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
 			
 			<div class="info">			
