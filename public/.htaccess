@@ -1,0 +1,7 @@
+
+<IfModule mod_rewrite.c>
+  # remove wwww
+  RewriteCond %{HTTP_HOST} ^www.rickrolldb.com$ [NC]
+  RewriteRule ^(.*)$ http://rickrolldb.com/$1 [R=301,L]
+</IfModule>
+

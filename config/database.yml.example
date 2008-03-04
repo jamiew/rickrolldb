@@ -1,0 +1,16 @@
+:development: &defaults
+  :adapter: mysql
+  :database: rickrolldb_dev
+  :username: root
+  :password: 
+  :host: localhost
+
+:test:
+  <<: *defaults
+  :database: rickrolldb_test
+
+:production:
+  <<: *defaults
+  :username: rickrolldb
+  :password: 
+  :database: rickrolldb_prod
