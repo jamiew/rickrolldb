@@ -42,8 +42,8 @@ class Entries < Application
     puts "CREATE....."
     puts params.inspect
     url = params[:url] || params[:entry][:url]
-    raise "No URL specified!" if url.nil? or url.empty?
     url.gsub!(/^http\:\/\//, '')
+    raise "No URL specified!" if url.nil? or url.empty? or !(url =~ /\./)
     puts "final url = #{url}"
     
     # create if it doesn't exist, in slightly ghetto fashion
@@ -62,6 +62,8 @@ class Entries < Application
     else #already exists, just add a confirm
       redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
     end
+  rescue
+    render :inline => "Error: #{$!}"
   end
   
   def edit
