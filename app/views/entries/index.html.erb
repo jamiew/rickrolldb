@@ -67,7 +67,7 @@
 		      <span class="thanks"><% if not new_voter %><em>Thanks for your vote</em><% end %></span>
 
 			<div class="comments">
-		   	<%= link_to "Comments", url(:entry, entry)+"#comments" %>
+		   	<%= link_to "Comments", url(:entry, entry)+"#disqus_thread" %>
 			</div> <!-- /.comments -->
 
 
@@ -102,15 +102,16 @@
 <!-- add disqus comment counts -->
 <script type="text/javascript">
 //<[CDATA[
-(function() {   
-                links = document.getElementsByTagName('a');
-                query = '?';
-                for(var i = 0; i < links.length; i++) {
-                        if(links[i].href.indexOf('#comments') >= 0) {
-                                query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
-                        }
-                }
-                document.write('<script type="text/javascript" src="http://disqus.com/forums/rickrolldb/get_num_replies.js' + query + '"></' + 'script>');
-        })();
+(function() {
+		links = document.getElementsByTagName('a');
+		query = '?';
+		for(var i = 0; i < links.length; i++) {
+			if(links[i].href.indexOf('#disqus_thread') >= 0) {
+				query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+			}
+		}
+		document.write('<script type="text/javascript" src="http://disqus.com/forums/rickrolldb/get_num_replies.js' + query + '"></' + 'script>');
+	})();
 //]]>
 </script>
+
