@@ -5,7 +5,7 @@ require 'rss/maker'
 content = RSS::Maker.make("2.0") { |m|
   m.channel.title = "RickrollDB updates"
   m.channel.link = "http://www.rickrolldb.com/rss"
-  m.channel.description = "Latest submissions to the Rickroll Database, the #1 weapon in the war on 'rolls"
+  m.channel.description = "Latest updates to the Rickroll Database, the #1 weapon in the war on rickroll"
   # m.items.do_sort = true # sort items by date
 
   @entries.each { |entry|
@@ -14,13 +14,11 @@ content = RSS::Maker.make("2.0") { |m|
     i.link = entry.url
     last_flag = entry.flags.last
     i.description = "
-<![CDATA[	
-    contributor #{last_flag.ip} <br />
-    action: #{last_flag.name} <br />
     #{entry.confirmations.length} yeas, #{entry.disputes.length} nays <br />
+    updated #{last_flag.timestamp}
     blacklisted?: #{entry.confirmed?} <br />
 
-    <img src=\"#{entry.thumbnail}\" /> <br /> ]]>
+    <img src=\"#{entry.thumbnail}\" /> <br />
 "
     #i.date = Time.now # they don't give us a time, bastards
     i.date = last_flag.timestamp
