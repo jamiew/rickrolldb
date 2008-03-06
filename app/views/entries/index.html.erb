@@ -27,7 +27,7 @@
 	<ul>
 	<% @entries.sort_by { |e| e.created_at }.reverse.each do |entry| -%>
 		<li id="entry-<%= entry.id %>">
-			<a href="http://<%= entry.url %>"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
+			<a href="http://<%= entry.url %>" rel="nofollow"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
 			
 			<div class="info">			
 				<% 
@@ -36,15 +36,12 @@
 					display = display.length > limit ? display[0..limit]+'...' : display
 					url = (entry.url =~ /^http/) ? entry.url : "http://#{entry.url}"
 				-%>
-				<span class="title"><%= link_to display, url %></span>
+				<span class="title"><%= link_to display, url, :rel => 'nofollow' %></span>
 				<span class="created_at">
 					added <%= timeago(entry.created_at) %>
 					<% unless entry.updated_at.nil? or entry.created_at == entry.updated_at %>, updated <%= timeago(entry.updated_at) %><% end %>
 				</span>
-				<% unless entry.user.nil? %><span class="created_at">by <%= timeago(entry.user.to_s) %></span><% end %>
-	
-
-			<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
+				<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
 			<div class="flags">			
 				<span class="confirm"><code>+</code> 
 				  <% if new_voter %>
