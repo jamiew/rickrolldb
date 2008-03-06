@@ -62,7 +62,7 @@
 
 # Uncomment this to set the number of members in your merb cluster. Don't set
 # this and :daemonize: at the same time.
-#:cluster: 3
+:cluster: 3
 
 # Uncomment this if you want to force merb to show full InternalServerError
 # details, even when in production mode
@@ -71,15 +71,6 @@
 # It is often useful to use a differant layout from 'application' for errors
 # set this to the layout template (or :none) that you want to use by default
 #:exception_layout: :none
-
-# You can override settings for specific environments by creating a yaml
-# file for that environment in config/environments.  For example, to
-# change the configuration only for development create
-# config/environments/development.yml
-
-# If you don't intend to parse JSON, use ActiveSupport, or want to roll your own
-# set this to true, to disable the loading of the JSON gem
-# :disable_json_gem: true
 
 # You can override settings for specific environments by creating a yaml
 # file for that environment in config/environments.  For example, to
