@@ -42,7 +42,8 @@ class Entries < Application
     puts "CREATE....."
     puts params.inspect
     url = params[:url] || params[:entry][:url]
-    url.gsub!(/^http\:\/\//, '')
+    allowed = []
+    url = url.gsub(/^http\:\/\//, '').gsub(/<(\/|\s)*[^(#{allowed.join('|') << '|\/'})][^>]*>/,'')
     raise "No URL specified!" if url.nil? or url.empty? or !(url =~ /\./)
     puts "final url = #{url}"
     
