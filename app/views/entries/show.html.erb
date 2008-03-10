@@ -11,14 +11,6 @@
   <li>By <%= @entry.user || "(anonymous)" %></li>
 </ul>
 
-<h2>Flags</h2>
-<ul class="flags">
-<%= "none" if @entry.flags.empty? %>
-<% @entry.flags.each do |flag| -%>
-  <li><%= flag.name %>: <%= flag.value %> by <%= flag.user || 'anonymous' %></li>
-<% end -%>
-</ul> <!-- /ul.flags -->
-
 <h2 class="clear">Comments</h2>
 <a name="comments"></a>
 <div class="comments">
