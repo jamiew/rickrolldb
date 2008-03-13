@@ -15,7 +15,7 @@ content = RSS::Maker.make("2.0") { |m|
     last_flag = entry.flags.last
     i.description = "
     #{entry.confirmations.length} yeas, #{entry.disputes.length} nays <br />
-    updated #{last_flag.timestamp}
+    last updated #{last_flag.timestamp} <br />
     blacklisted?: #{entry.confirmed?} <br />
 
     <img src=\"#{entry.thumbnail}\" /> <br />
