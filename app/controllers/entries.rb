@@ -66,9 +66,14 @@ class Entries < Application
     @entry = Entry.find_by_url(url)
     if @entry.nil?
       ## check if this is actually a website       
-      req = Net::HTTP.new(url, 80) #FIXME should be just hostname
-      puts req.request_head('/') #FIXME should be full path, not just index
-      raise "This does not appear to actually be a website, or else it's down at the moment. Can you reach it?"
+      begin
+        puts uri.inspect
+        puts uri.to_s
+        req = Net::HTTP.new(uri.host, 80)
+        puts req.request_head(uri.path.empty? ? '/' : uri.path)
+      rescue
+        raise "This does not appear to actually be a website, or else it's down at the moment. #{$! if Merb.environment == 'development'}<br />Can you reach it?"
+      end
       
       ## we're OK, create the entry
       @entry = Entry.new(params[:entry])
@@ -146,7 +151,7 @@ class Entries < Application
     # redirect url(:entry, @entry)
     if request.xhr?
       siblings = Flag.find(:all, :conditions => "entry_id = '#{flag.entry_id}' AND name = '#{flag.name}'")
-      render :text => siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .flags a').fadeOut();</script>", :layout => false
+      render :text => siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .flags a').fadeOut();</script> <em>Thanks for your vote</em>", :layout => false
     else
       redirect url('/')
     end

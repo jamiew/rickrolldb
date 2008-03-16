@@ -32,12 +32,12 @@
 			<div id="flash"></div>
 	
 			<!-- aboot -->
-			<div id="about" class="clear">
+			<div id="about" class="box clear">
 				<ul>
 					<li><em>Have you or someone you love been rickroll'd?</em> <br />
 						Submit the URL below. </li>
 					<li>Protect yourself by using Firefox, installing <a href="https://addons.mozilla.org/en-US/firefox/addon/1865">Adblock Plus</a>, 
-						and subscribing to the ricklist</li>
+						and subscribing to the rickblock list</li>
 					<li>Help verify the database by confirming or disputing entries</li>
 					<li>What's a rickroll? Watch <a href="http://youtube.com/watch?v=KT--CsBh5TM" title="Rickroll 101, narrp">Rocketboom Explains Rickroll</a></li>
 			</div>
@@ -67,7 +67,9 @@
 	  </div>
     
 	  <div id="footer">
-			<%= link_to 'about', '/about' %> - <%= link_to 'privacy policy', '/privacy' %> <br /><br />
+			<big><%= link_to 'about, thanks, & howto', '/about' %> </big>
+			<!-- - <%= link_to 'privacy policy', '/privacy' %>  --> <!-- we don't use much, no need -->
+			<br /><br />
 	    copyfree 2007-2008 <a href="http://tramchase.com">Jamie Wilkinson</a> <br />
 	    <br />
             + <strong><a href="http://dev.fffff.at/projects/rickroll-database" title="RICKBLOCK DEVELOPMENT">source code</a></strong> (ruby on merb) +

@@ -17,24 +17,21 @@
 
 <div id="entries">
 
-	<h2 style="display: inline; margin: 0 auto;">		
-		<% page_max = (@all_entries.length / @limit).ceil %>
-
+	<div id="navigation">
+	<h2>		
+		<% last_page = (@all_entries.length / @limit).ceil -%>
 		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
-
-		<% unless page_max == @page %><a class="floatRight prevnext next" href="?page=<%= (@page + 1)  %>" title="Next page">&raquo;</a><% end %>		
-
+		<div class="prevnext next"><%= @page < last_page ? link_to('&raquo', "?page=#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
   	<div class="floatRight" id="page-info">
 			The Culprits <br />
 	  	<small>
 				<%= @all_entries.length %> submitted; <%= @all_entries.select { |e| e.confirmed? }.length %> confirmed
-			(page <%= @page %> of <%= page_max %>)
+			(page <%= @page %> of <%= last_page %>)
 			</small>
 		</div>
-		
-		<% unless false %><a class="floatRight prevnext prev" href="?page=<%= (@page - 1)  %>" title="Previous page">&laquo;</a><% end %>
+		<div class="prevnext prev"><%= @page > 1 ? link_to('&laquo', "?page=#{@page - 1}", :title => 'Previous page') : '&laquo;' %></div>
 	</h2>
-	<br /><br /><br /><br class="clear" />
+	</div>
 	
 	<ul>
 	<% @entries.sort_by { |e| e.created_at }.reverse.each do |entry| -%>
@@ -45,10 +42,9 @@
 				<% 
 					limit = 40
 					display = (entry.title || entry.url).gsub(/\/$/,'').gsub(/^http\:\/\//,'')
-					display = display.length > limit ? display[0..limit]+'...' : display
-					url = (entry.url =~ /^http/) ? entry.url : "http://#{entry.url}"
+					display = display.length > limit ? display[0..limit]+'...' : display					
 				-%>
-				<span class="title"><%= link_to display, url, :rel => 'nofollow' %></span>
+				<span class="title"><%= link_to display, entry.link_url, :rel => 'nofollow' %></span>
 				<span class="created_at">
 					added <%= timeago(entry.created_at) %>
 					<% unless entry.updated_at.nil? or entry.created_at == entry.updated_at %>, updated <%= timeago(entry.updated_at) %><% end %>
@@ -84,11 +80,11 @@
 
 			<div class="stats">
 				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
-				<% width = 310; height = 10 #FIXME %>
+				<% width = 300; height = 10 #FIXME %>
 				<% disputage = entry.controversy %>
 				<%#= "disputage: #{disputage}" %>
-				<% disputage = 1 if disputage == 0 #... %>
-				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">&nbsp;</div>
+				<% disputage = 1 if disputage == 0 or disputage.nan? #... %>
+				<div style="float: right; display: inline; width: <%= width - 1%>px; height: 3px; background-color: #aaa;">&nbsp;</div>
 				<div style="background-color: #fbb; float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;">&nbsp;<%#= ("%.2f" % disputage) %></div>
 				<div style="background-color: #bfb;float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; ">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
 			</div> <!-- /.stats -->

@@ -45,10 +45,17 @@ class Entry < ActiveRecord::Base
     end
   end
   
+  # shortcut for URL + an http:// prefix if necessary
+  def link_url
+    self.url =~ /^http/ ? self.url : "http://#{self.url}"
+  end
+  
   # for a nice clean URL
   def to_param
-    coder = HTMLEntities.new
-    coder.encode( url.gsub('http://', ''), :decimal)
+    # TODO: use the URL... need regex in the routes
+    # coder = HTMLEntities.new
+    # coder.encode( url.gsub('http://', ''), :decimal)
+    id
   end
   alias :slug :to_param
   

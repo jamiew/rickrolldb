@@ -2,21 +2,35 @@
 <h1>About</h1>
 
 <p>
-	RickBlock is created and maintained by <em>viewers like you</em>! <br />
-	Thanks for helping save the Internet.
+	<br />
+	
+	<big>
+	RickBlock is created and maintained by participants like you! <br />
+	Thanks for helping save the Internet. <br />
+	</big>
+	
+	<p>
+	<em><%= Flag.count %></em> votes on <em><%= Entry.count %></em> entries since <%= Entry.find(:first).created_at.strftime('%m/%d, %Y') %>
+	</p>
 </p>
 
 
-<p><br />
-	Built by <a href="http://tramchase.com">Jamie Wilkinson</a> in NYC, Nov. 2007<br />
+<p class="clear"><br />
+	<img src="http://tramchase.com/images/beardedface.gif" height="64" class="floatLeft" style="margin-right: 5px;" />
+	<br /><br />
+	Built by <a href="http://tramchase.com">Jamie Wilkinson</a> in NYC<br />
 </p>
 
-<p><br />
+<p class="clear"><br /><br />
 	Source code + docs: <a href="http://dev.fffff.at/projects/rickrolldb">dev.fffff.at</a> <br />
-	100% open-source technology: <a href="http://rubylang.org">Ruby</a>, <a href="http://merbivore.com">Merb</a>, <a href="http://jquery.com">jQuery</a>. <br />	
+	<br />
+	100% open-source technology: <a href="http://rubylang.org">Ruby</a>, <a href="http://merbivore.com">Merb</a> & <a href="http://jquery.com">jQuery</a> <br />
+	served by <a href="http://mongrel.org">Mongrels</a>, <a href="http://apache.org">Apache</a> & <a href="http://mysql.org">MySQL</a> on <a href="http://linux.org">Linux</a>	
 </p>
 
-<p><br />
+
+<p class="clear"><br /><br />
+	<img src="/images/fatlab.png" title="FATLAB" alt="FATLAB" border="0" class="floatLeft" style="margin-right: 5px;" />
 	A <a href="http://fffff.at">FAT Lab</a> production <br />
 	<em>"No copyrights, no money.... <a href="http://internetfamo.us">just fame</a>."</em>
 </p>

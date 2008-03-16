@@ -1,21 +1,39 @@
-<h2>Rickroll info</h2>
 
-<div class="floatRight">
-  <img src="<%= @entry.thumbnail %>" alt="" />
+<div class="home" style="position: relative; top: -25px; left: -5px;">
+	&laquo; <%= link_to 'back to main page', '/', :style => 'border: 0;' %>
 </div>
 
-<ul class="entry-info">
-  <li>URL: <%= @entry.url %></li>
-  <li>Title: <%= @entry.title || "(nil)" %></li>
-  <li>Submitted <%= timeago(@entry.created_at) %>, on <%= @entry.created_at.strftime('%D %I:%m(pm/am)') %></li>
-  <li>By <%= @entry.user || "(anonymous)" %></li>
-</ul>
+<div class="box">
+	<h2>Rickroll info</h2>
 
-<h2 class="clear">Comments</h2>
-<a name="comments"></a>
-<div class="comments">
-  <div id="disqus_thread"></div>
-  <script type="text/javascript" src="http://disqus.com/forums/rickrolldb/embed.js"></script>
-  <noscript><a href="http://rickrolldb.disqus.com/?url=ref">Comments.</a></noscript>
+	<div class="floatRight">
+	  <%= link_to '<img src="'+@entry.thumbnail+'" alt="" title="screenshot of alleged rickroll" />', @entry.link_url %>
+	</div>
 
+	<ul class="entry-info">
+	  <li>URL: <%= link_to @entry.link_url, @entry.url %></li>
+	  <!-- <li>Title: <%= @entry.title || "(nil)" %></li> -->
+	  <li>Submitted <%= timeago(@entry.created_at) %>, <%= @entry.created_at.strftime('%D %I:%m') %></li>
+	  <li>By <%= @entry.user || "an anonymous user" %></li>
+	</ul>
 
+	<br />
+	<h2>Stats</h2>
+	<ul class="entry-info entry-stats">
+		<li><em><%= @entry.confirmations.length %></em> confirms, <em><%= @entry.disputes.length %></em> disputes</li>
+		<li><em><%= @entry.flags.length %></em> total votes</li>
+		<li>Blacklisted? <%= @entry.confirmed? ? 'yep' : 'nope' %></li>
+	</ul>
+</div>
+<br class="clear" /><br />
+
+<div class="box">
+
+	<h2 class="clear">Comments</h2>
+	<a name="comments"></a>
+	<div class="comments">
+	  <div id="disqus_thread"></div>
+	  <script type="text/javascript" src="http://disqus.com/forums/rickrolldb/embed.js"></script>
+	  <noscript><a href="http://rickrolldb.disqus.com/?url=ref">Comments.</a></noscript>
+
+</div>

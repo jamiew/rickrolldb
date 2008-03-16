@@ -18,14 +18,15 @@ body {
 }
 
 a {
-  color: #ff9988;
-  text-shadow: #666666 5px 5px 5px;
+  color: #f98;
+  text-shadow: #666 5px 5px 5px;
   text-decoration: none;
   border-bottom: 1px dotted #cbc;
 }
 a:hover {
-  color: #4d9b12;
-  background-color: #fff;
+/*  color: #4d9b12;*/
+  color: #fcb;
+/*  background-color: #f0f;*/
   text-decoration: underline;
 }
 a img {
@@ -177,17 +178,21 @@ p {
 
 #about ul {
   margin-top: 5px;
+  list-style-type: none;
+  
 }
 #about ul li {
-  margin-bottom: 5px;
-  margin-left: 12px;
+  margin-bottom: 12pt;
+  padding-left: 22px;
+  background: url(/images/star.gif) no-repeat 0 2px;
+  min-height: 20px;  
 }
 
 
 #ricklist {
   float: right;
-  margin-top: 15px;
-  width: 200px;
+  margin-top: 30px;
+  width: 190px;
   margin-right: 10px;
 }
 #ricklist a {
@@ -315,10 +320,15 @@ p {
   margin-bottom: 4px;
 }
 /* some colors */
+#entries li, .box {
+  background-color: #69635a;
+  padding: 3px 2px;
+  border: 1px solid #645d55;
+}  
+
 #entries .title, #entries .created_at, 
 #entries .flags, #entries .comments {
   text-align: left;
-  background-color: #69635a;  
 }
 #entries .flags a {
   border: 0;
@@ -374,10 +384,14 @@ p {
 }
 #entries .comments {
   float: right;
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin-top: 10px;
   text-transform: lowercase;
 }
+#entries .comments a {
+  background: url(/images/comments.gif) no-repeat top right;
+  padding-right: 23px;
+}  
 .comments, .permalink {
   display: inline;
 }
@@ -388,33 +402,54 @@ p {
   color: #eef; 
 }
 
-.entry-info ul {
-  padding: 0 0 20px 20px;
+ul.entry-info {
+  padding: 3px 0 20px 20px;
 }
-.entry-info ul li {
-  padding-bottom: 2px;
+ul.entry-info li {
+  padding: 0 0 2px 0px;
   font-size: 1.1em;
 }
 
 
 /* prev/next & pagination */
-.prevnext {
-  font-size: 25pt;
-  color: #ff0;
-  border: 1px dotted #ff0;
-  padding: 0 3px 3px 2px;
+#navigation {
+  margin-bottom: 20px;
+}  
+#navigation h2 {
+  height: 42px;
+  width: 400px;
+  margin: 0 auto;
+  padding-top: 5px;
 }
-.prev {
+div.prevnext {
+  margin-top: -5px;
+  font-size: 30pt;
+  display: inline;
+  float: right; 
+  color: #737073; 
+}
+div.prevnext a {
+  border: 0;
+  padding-bottom: 4px;
+  color: #ff0;
+}
+div.prevnext a:hover {
+  text-decoration: none;
+  background-color: #ff0;
+  color: #f0f;
+}
+div.prev {
   margin-right: 30px;
   padding-right: 5px;
 }
-.next {
+div.next {
   margin-left: 30px;  
   padding-left: 5px;  
 }
-.rss-link {
-  padding-top: 5px;
-  margin-left: 65px;
+a.rss-link {
+  position: relative;
+  top: 7px;
+  left: 50px;
 }
 
 
