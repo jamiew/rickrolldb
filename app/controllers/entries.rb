@@ -5,28 +5,21 @@ class Entries < Application
     @limit = 20 # FIXME
     @page = (params[:page] || 1).to_i
     @offset = (@page-1)*@limit
-    @all_entries = Entry.find(:all, :include => [:flags], :order => 'updated_at DESC')
+    @all_entries = Entry.find(:all, :order => 'updated_at DESC')
     @entries = @all_entries[@offset...@offset+@limit]
     render @entries
   end
   
   def xml # FIXME should be raw XML, use .rss
-    @entries = Entry.find(:all, :include => [:flags], :order => 'updated_at DESC', :limit => 12)
+    @entries = Entry.find(:all, :order => 'updated_at DESC', :limit => 12)
     render @entries
   end
     
   
   def show
-    coder = HTMLEntities.new
+    #coder = HTMLEntities.new
     #id = coder.decode( params[:id] )
-    id = params[:id]
-    @entry = Entry.find_by_url(id, :include => [:flags])
-
-    # also try w/ http:// prefix (DEPRECATED)
-    @entry ||= Entry.find_by_url('http://'+id, :include => [:flags])
-    
-    # finally try by ID
-    @entry ||= Entry.find(params[:id], :include => [:flags])
+    @entry ||= Entry.find(params[:id])
     render @entry
   end
   

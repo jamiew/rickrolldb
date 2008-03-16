@@ -9,7 +9,7 @@ module Merb
     end
     
     def page_title
-      title = "RickBlock: "
+      title = "Rickroll Database: "
       if false
         title << "..."
       else

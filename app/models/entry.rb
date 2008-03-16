@@ -11,7 +11,7 @@ class Entry < ActiveRecord::Base
   
   # % of votes needed before it is confirmed (rounded down)
   def confirmation_threshold
-    0.7
+    0.6
   end
   def confirmed?
     confirmations.length > (flags.length * confirmation_threshold).floor
