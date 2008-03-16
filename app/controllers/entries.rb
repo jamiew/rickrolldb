@@ -1,8 +1,15 @@
 class Entries < Application
   provides :xml, :js, :yaml, :text
-  
+
   def index
-    @entries = Entry.find(:all, :include => [:flags, :comments], :order => 'updated_at DESC')
+    @limit = 20 # FIXME
+    @page = (params[:page] || 1).to_i
+    @offset = (@page-1)*@limit
+    puts "offset = #{@offset}   limit = #{@limit}"
+
+    @all_entries = Entry.find(:all, :include => [:flags, :comments], :order => 'updated_at DESC')
+    @entries = @all_entries[@offset...@offset+@limit]
+    puts @entries.inspect
     render @entries
   end
   
@@ -38,29 +45,42 @@ class Entries < Application
   end
   
   def create
-    # sanitize
-    puts "CREATE....."
+    print "Entry.create.... "
     puts params.inspect
-    url = params[:url] || params[:entry][:url]
-    allowed = []
-    url = url.gsub(/^http\:\/\//, '').gsub(/<(\/|\s)*[^(#{allowed.join('|') << '|\/'})][^>]*>/,'')
-    raise "No URL specified!" if url.nil? or url.empty? or !(url =~ /\./)
+    begin
+      url = params[:url] || params[:entry][:url]
+      url = "http://#{url}" unless url =~ /^http\:\/\// # prefix w/ http if necessary
+      uri = URI.parse(url) # will throw exception if it's got HTML, etc.
+      # url.gsub!(/^www\./,'') # not needed by ABP
+    rescue
+      raise "you submitted a malformed URL: #{url}"
+    end
+    
+    # TODO: parse a YouTube URL into something like "youtube:xjf9#fj" 
+    #  to ignore "&feature=related", etc. garbage
+
+    raise "No URL specified!" if url.nil? or url.empty?
     puts "final url = #{url}"
     
-    # create if it doesn't exist, in slightly ghetto fashion
+    # create if it doesn't exist yet; just confirm if it does
     @entry = Entry.find_by_url(url)
     if @entry.nil?
+      ## check if this is actually a website       
+      req = Net::HTTP.new(url, 80) #FIXME should be just hostname
+      puts req.request_head('/') #FIXME should be full path, not just index
+      raise "This does not appear to actually be a website, or else it's down at the moment. Can you reach it?"
+      
+      ## we're OK, create the entry
       @entry = Entry.new(params[:entry])
-      @entry.url = url if @entry.url != url #checking in case we're not using params[:entry][:url] which behaves funny
+      @entry.url = url if @entry.url != url # checking in case we're not using params[:entry][:url] (e.g. via bookmarklet)
       if @entry.save
         # also give it a confirm by redirecting to confirm URL
-        #redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
-	redirect url(:controller => :entries, :action => :show, :id => @entry.id)
+      	redirect url(:controller => :entries, :action => :show, :id => @entry.id)
       else
         # render :action => :new
-        render :inline => "Errors creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
+        render :inline => "Error creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
       end
-    else #already exists, just add a confirm
+    else # it already exists, just confirm it
       redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
     end
   rescue

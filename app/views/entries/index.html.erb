@@ -17,11 +17,21 @@
 
 <div id="entries">
 	<h2>
-          <a class="floatRight" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
+		
+		<% page_max = (@all_entries.length / @limit).ceil %>
+						    
+		<a class="floatRight" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
 
-	  The Culprits 
-	  <br />
-	  <small><%= @entries.length %> submitted; <%= @entries.select { |e| e.confirmed? }.length %> confirmed</small>
+		<% unless @page == 1 %><a class="pagination nextPage" href="?page=<%= (@page - 1)  %>">&laquo;</a><% end %>
+  	
+		The Culprits <br />
+  	<small>
+			<%= @all_entries.length %> submitted; <%= @all_entries.select { |e| e.confirmed? }.length %> confirmed
+		(page <%= @page %> of <%= page_max %>)
+		</small>
+
+		<% unless page_max == @page %><a class="pagination prevPage" href="?page=<%= (@page + 1)  %>">&raquo;</a><% end %>
+		
 	</h2>
 
 	<ul>
@@ -59,9 +69,10 @@
   				<% end %>
 				  <strong class="count"><%= entry.disputes.length %></strong>
 				</span>			
+				<br class="clear" />
 			</div> <!-- /.flags -->
 
-		      <span class="thanks"><% if not new_voter %><em>Thanks for your vote</em><% end %></span>
+      <% if not new_voter %><span class="thanks"><em>Thanks for your vote</em></span><% end %>
 
 			<div class="comments">
 		   	<%= link_to "Comments", url(:entry, entry)+"#disqus_thread" %>
@@ -74,7 +85,7 @@
 				<% width = 310; height = 10 #FIXME %>
 				<% disputage = entry.controversy %>
 				<% disputage = 0 if disputage.nan? %>
-				<%# puts "disputage: #{disputage}" %>
+				<%= "disputage: #{disputage}" %>
 				<% disputage = 1 if disputage == 0 #... %>
 				<% disputage = 0.5 if disputage == 1 #cont %>
 				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">&nbsp;</div>

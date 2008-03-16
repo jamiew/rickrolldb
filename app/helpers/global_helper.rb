@@ -5,7 +5,17 @@ module Merb
 
     # site-related
     def site_url
-      "rickrolldb.com"
+      "asciidb.com"
+    end
+    
+    def page_title
+      title = "RickBlock: "
+      if false
+        title << "..."
+      else
+        title << "never get rickroll'd again"
+      end
+      title
     end
 
     # user-related

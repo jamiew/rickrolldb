@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
-  <title>Rickroll Database: never get rickroll'd again</title>
+  <title><%= page_title %></title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
   <link rel="alternate" type="application/rss+xml" title="RickrollDB updates feed" href="/rss" />
@@ -44,7 +44,11 @@
 
 			<!-- linx -->
 			<div id="ricklist">
-				<%= link_to 'Subscribe w/ Adblock Plus', 'abp://subscribe/?location=http%3A%2F%2Frickrolldb.com%2Fricklist.txt&title=RickrollDB/ricklist.txt', :class => 'subscribe' %>
+				
+				<%= link_to 'Install AdBlockPlus', 'https://addons.mozilla.org/en-US/firefox/downloads/file/19510/adblock_plus-0.7.5.3-fx+tb+sm+fl.xpi' %>
+				<br />
+				
+				<%= link_to 'Subscribe to Ricklist', 'abp://subscribe/?location=http%3A%2F%2Frickrolldb.com%2Fricklist.txt&title=RickrollDB/ricklist.txt', :class => 'subscribe' %>
 				<!-- <%= link_to 'RICKLIST.TXT', '/ricklist.txt', :class => 'ricklist' %> -->
 
 				<br /><br />

@@ -327,6 +327,7 @@ p {
 #entries .flags {
   margin-top: 12px;  
   padding: 3px 0;
+  height: 55px;
 }
 #entries .created_at {
   font-size: 8pt;

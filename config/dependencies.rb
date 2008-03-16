@@ -39,8 +39,9 @@ require 'rubygems'
 require 'merb_helpers'
 require 'htmlentities'
 require 'map_by_method'
-require 'geoip'
+# require 'geoip'
 require 'pp'
+require 'net/http'
 
 
 Merb::BootLoader.after_app_loads do

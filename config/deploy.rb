@@ -19,15 +19,17 @@ task :load_production_data, :roles => :db, :only => { :primary => true } do
     # on_rollback { delete "/tmp/#{filename}" }
 
     # run "mysqldump -u #{database[:production][:username]} --password=#{database[:production][:password]} #{database[:production][:database]} > /tmp/#{filename}" do |channel, stream, data|
-    run "mysqldump -h #{database[:production][:host]} -u #{database[:production][:username]} --password=#{database[:production][:password]} #{database[:production][:database]} | gzip > /tmp/#{filename}" do |channel, stream, data|
+    run "mysqldump -h #{database[:production][:host]} -u #{database[:production][:username]} --password=\"#{database[:production][:password]}\" #{database[:production][:database]} | gzip > /tmp/#{filename}" do |channel, stream, data|
       puts data
     end
     get "/tmp/#{filename}", filename
     # exec "/tmp/#{filename}"
-    password = database[:development][:password].nil? ? '' : "--password=#{database[:development][:password]}"  # FIXME shows up in process list, do not use in shared hosting
+    quit
+    password = database[:development][:password].nil? ? '' : "--password=\"#{database[:development][:password]}\""  # FIXME shows up in process list, do not use in shared hosting
     # FIXME exec and run w/ localhost as host not working :\
     # exec "mysql -u #{database[:development][:username]} #{password} #{database[:development][:database]} < #{filename}; rm -f #{filename}"
     puts "Loading into local db ..."
+    puts "gunzip -c #{filename} | mysql -u #{database[:development][:username]} #{password} #{database[:development][:database]} && rm -f gunzip #{filename}"
     `gunzip -c #{filename} | mysql -u #{database[:development][:username]} #{password} #{database[:development][:database]} && rm -f gunzip #{filename}`
   end
   
