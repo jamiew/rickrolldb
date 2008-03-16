@@ -20,7 +20,7 @@ content = RSS::Maker.make("2.0") { |m|
 		<p>#{link_to '&raquo; Comments <br /> <img src=\"#{entry.thumbnail}\" />', url(:entry, entry)}</p>
 "
     #i.date = Time.now # they don't give us a time, bastards
-    i.date = last_flag.timestamp
+    i.date = last_flag.timestamp rescue Time.now
   }
 }
 %>

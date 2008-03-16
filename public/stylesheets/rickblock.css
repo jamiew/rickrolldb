@@ -414,10 +414,10 @@ ul.entry-info li {
 
 
 /* prev/next & pagination */
-#navigation {
+.navigation {
   margin-bottom: 20px;
 }  
-#navigation h2 {
+.navigation h2 {
   height: 42px;
   width: 400px;
   margin: 0 auto;

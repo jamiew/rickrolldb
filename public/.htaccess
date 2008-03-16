@@ -1,7 +1,20 @@
 
 <IfModule mod_rewrite.c>
-  # remove wwww
+  RewriteEngine On
+
+  # remove www from domain names
   RewriteCond %{HTTP_HOST} ^www.rickrolldb.com$ [NC]
   RewriteRule ^(.*)$ http://rickrolldb.com/$1 [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^www.rickblock.com$ [NC]
+  RewriteRule ^(.*)$ http://rickblock.com/$1 [R=301,L]
+
+  # serve cached pages if avail
+  #RewriteRule ^$ index.html [QSA]
+  #RewriteCond %{REMOTE_ADDR} !^(127\.0\.0\.1)$
+  #RewriteRule ^([^.]+)$ $1.html [QSA]
+  #RewriteCond %{REQUEST_FILENAME} !-f
+  #RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+ 
 </IfModule>
 
