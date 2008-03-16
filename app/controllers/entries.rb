@@ -5,11 +5,8 @@ class Entries < Application
     @limit = 20 # FIXME
     @page = (params[:page] || 1).to_i
     @offset = (@page-1)*@limit
-    puts "offset = #{@offset}   limit = #{@limit}"
-
     @all_entries = Entry.find(:all, :include => [:flags, :comments], :order => 'updated_at DESC')
     @entries = @all_entries[@offset...@offset+@limit]
-    puts @entries.inspect
     render @entries
   end
   
@@ -36,7 +33,6 @@ class Entries < Application
   def new
     #only_provides :html_escape
     if not params[:url].empty? # called via bookmarklet
-      puts "going to create entry from passed URL #{params[:url]} ..."
       create
     else 
       @entry = Entry.new(params[:entry])
@@ -59,8 +55,8 @@ class Entries < Application
     # TODO: parse a YouTube URL into something like "youtube:xjf9#fj" 
     #  to ignore "&feature=related", etc. garbage
 
-    raise "No URL specified!" if url.nil? or url.empty?
-    puts "final url = #{url}"
+    raise "No URL specified!" if uri.to_s.empty?
+    puts "Entry.create: final url = #{url}"
     
     # create if it doesn't exist yet; just confirm if it does
     @entry = Entry.find_by_url(url)
