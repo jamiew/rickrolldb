@@ -16,24 +16,26 @@
 
 
 <div id="entries">
-	<h2>
-		
+
+	<h2 style="display: inline; margin: 0 auto;">		
 		<% page_max = (@all_entries.length / @limit).ceil %>
-						    
-		<a class="floatRight" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
 
-		<% unless @page == 1 %><a class="pagination nextPage" href="?page=<%= (@page - 1)  %>">&laquo;</a><% end %>
-  	
-		The Culprits <br />
-  	<small>
-			<%= @all_entries.length %> submitted; <%= @all_entries.select { |e| e.confirmed? }.length %> confirmed
-		(page <%= @page %> of <%= page_max %>)
-		</small>
+		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
 
-		<% unless page_max == @page %><a class="pagination prevPage" href="?page=<%= (@page + 1)  %>">&raquo;</a><% end %>
+		<% unless page_max == @page %><a class="floatRight prevnext next" href="?page=<%= (@page + 1)  %>" title="Next page">&raquo;</a><% end %>		
+
+  	<div class="floatRight" id="page-info">
+			The Culprits <br />
+	  	<small>
+				<%= @all_entries.length %> submitted; <%= @all_entries.select { |e| e.confirmed? }.length %> confirmed
+			(page <%= @page %> of <%= page_max %>)
+			</small>
+		</div>
 		
+		<% unless false %><a class="floatRight prevnext prev" href="?page=<%= (@page - 1)  %>" title="Previous page">&laquo;</a><% end %>
 	</h2>
-
+	<br /><br /><br /><br class="clear" />
+	
 	<ul>
 	<% @entries.sort_by { |e| e.created_at }.reverse.each do |entry| -%>
 		<li id="entry-<%= entry.id %>">
@@ -72,8 +74,8 @@
 				<br class="clear" />
 			</div> <!-- /.flags -->
 
-      <% if not new_voter %><span class="thanks"><em>Thanks for your vote</em></span><% end %>
-
+      <% if not new_voter %><span class="thanks"><em>Thanks for your vote</em></span><% end %>				
+	
 			<div class="comments">
 		   	<%= link_to "Comments", url(:entry, entry)+"#disqus_thread" %>
 			</div> <!-- /.comments -->
@@ -84,10 +86,8 @@
 				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
 				<% width = 310; height = 10 #FIXME %>
 				<% disputage = entry.controversy %>
-				<% disputage = 0 if disputage.nan? %>
-				<%= "disputage: #{disputage}" %>
+				<%#= "disputage: #{disputage}" %>
 				<% disputage = 1 if disputage == 0 #... %>
-				<% disputage = 0.5 if disputage == 1 #cont %>
 				<div style="float: right; display: inline; width: <%= width %>px; height: 3px; background-color: #aaa;">&nbsp;</div>
 				<div style="background-color: #fbb; float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;">&nbsp;<%#= ("%.2f" % disputage) %></div>
 				<div style="background-color: #bfb;float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; ">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>

@@ -1,3 +1,4 @@
+# requires web2kit: http://www.paulhammond.org/webkit2png/ 
 desc "Capture screenshots of all Entries using webkit2png"
 task :capture_screenshots => :merb_env do
   width = 250, height = 250
