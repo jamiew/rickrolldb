@@ -21,7 +21,8 @@
 	<h2>		
 		<% last_page = (@all_entries.length / @limit).ceil -%>
 		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
-		<div class="prevnext next"><%= @page < last_page ? link_to('&raquo', "?page=#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
+		<%# TODO use url() for the /page/:page URL; also below w/ prev link %>
+		<div class="prevnext next"><%= @page < last_page ? link_to('&raquo', "/page/#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
   	<div class="floatRight" id="page-info">
 			The Culprits <br />
 	  	<small>
@@ -29,7 +30,7 @@
 			(page <%= @page %> of <%= last_page %>)
 			</small>
 		</div>
-		<div class="prevnext prev"><%= @page > 1 ? link_to('&laquo', "?page=#{@page - 1}", :title => 'Previous page') : '&laquo;' %></div>
+		<div class="prevnext prev"><%= @page > 1 ? link_to('&laquo', "/page/#{@page - 1}", :title => 'Previous page') : '&laquo;' %></div>
 	</h2>
 	</div>
 	
@@ -70,7 +71,7 @@
 				<br class="clear" />
 			</div> <!-- /.flags -->
 
-      <% if not new_voter %><span class="thanks"><em>Thanks for your vote</em></span><% end %>				
+      <span class="thanks"><em><% if not new_voter %>Thanks for your vote<% end %></em></span>
 	
 			<div class="comments">
 		   	<%= link_to "Comments", url(:entry, entry)+"#disqus_thread" %>

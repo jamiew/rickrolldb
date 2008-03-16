@@ -151,7 +151,7 @@ class Entries < Application
     # redirect url(:entry, @entry)
     if request.xhr?
       siblings = Flag.find(:all, :conditions => "entry_id = '#{flag.entry_id}' AND name = '#{flag.name}'")
-      render :text => siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .flags a').fadeOut();</script> <em>Thanks for your vote</em>", :layout => false
+      render :text => siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .thanks em').text('Thanks for your vote').fadeIn('fast');</script>", :layout => false
     else
       redirect url('/')
     end

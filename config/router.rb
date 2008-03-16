@@ -30,6 +30,7 @@ Merb::Router.prepare do |r|
     entries.resources :comments
     entries.resources :flags
   end
+  r.match('/page/:page').to(:controller => 'entries', :action =>'index')
   
   # specific routes
   r.match('/ricklist.txt').to(:controller => 'entries', :action =>'index', :format => 'text')

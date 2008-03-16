@@ -81,11 +81,14 @@ p {
 }
 #loading {
   position: absolute;
-  top: 10px;
+  right: 15px;
+  top: 5px;
   text-align: center;
   text-align: right;
-  background-color: #f0f;
   color: #fff;
+}
+#loading img {
+  width: 32px;
 }
 #flash {
 }

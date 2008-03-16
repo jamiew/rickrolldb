@@ -40,7 +40,8 @@ $(document).ready(function(){
 	
   // hijax links
   $('a.flag.hijax').click(function(){
-    $(this).parent().find('.count').load($(this).attr('href'));
+    $(this).parent().parent().parent().find('.flags a').hide(); // hide immediately
+    $(this).parent().find('.count').load($(this).attr('href')); // update vote count w/ result
     return false;
   });
 
