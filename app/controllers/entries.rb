@@ -134,6 +134,7 @@ class Entries < Application
     puts flag.inspect
     if flag.new_record?
       flag.name = params[:flag_name]
+      flag.timestamp = Time.now
       # user id?
       flag.save
       @entry.flags << flag
