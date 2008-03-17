@@ -11,7 +11,7 @@
 	</div>
 
 	<ul class="entry-info">
-	  <li>URL: <%= link_to @entry.link_url, @entry.url %></li>
+	  <li>URL: <%= link_to @entry.url, @entry.link_url %></li>
 	  <!-- <li>Title: <%= @entry.title || "(nil)" %></li> -->
 	  <li>Submitted <%= timeago(@entry.created_at) %>, <%= @entry.created_at.strftime('%D %I:%m') %></li>
 	  <li>By <%= @entry.user || "an anonymous user" %></li>
