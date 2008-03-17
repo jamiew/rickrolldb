@@ -19,8 +19,10 @@ class Entries < Application
   def show
     #coder = HTMLEntities.new
     #id = coder.decode( params[:id] )
-    @entry ||= Entry.find(params[:id])
+    @entry = Entry.find(params[:id])
     render @entry
+  rescue ActiveRecord::RecordNotFound
+    raise NotFound
   end
   
   def new
