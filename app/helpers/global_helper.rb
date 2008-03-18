@@ -4,10 +4,6 @@ module Merb
 
 
     # site-related
-    def site_url
-      "asciidb.com"
-    end
-    
     def page_title
       title = "Rickroll Database: "
       if false

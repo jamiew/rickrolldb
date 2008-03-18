@@ -1,12 +1,15 @@
 class Entries < Application
   provides :xml, :js, :yaml, :text
+  # cache_action :index
 
   def index
     @limit = 20 # FIXME
     @page = (params[:page] || 1).to_i
     @offset = (@page-1)*@limit
-    @all_entries = Entry.find(:all, :order => 'updated_at DESC')
-    @entries = @all_entries[@offset...@offset+@limit]
+    # approx. 2x faster to add 20 queries for each flag. O_o
+    # TODO do a Flag.find(:all) w/ the mapped entry_id's and <=>
+    # :include => [:flags], 
+    @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset)
     render @entries
   end
   
@@ -27,9 +30,13 @@ class Entries < Application
   
   def new
     #only_provides :html_escape
-    if not params[:url].empty? # called via bookmarklet
-      create
+    print 'Entry.new... '
+    puts params.inspect
+    if not params[:url].empty?
+      puts "IF!"
+      create      
     else 
+      puts "ELSE!"
       @entry = Entry.new(params[:entry])
       render
     end
@@ -46,11 +53,10 @@ class Entries < Application
     rescue
       raise "you submitted a malformed URL: #{url}"
     end
-    
-    # TODO: parse a YouTube URL into something like "youtube:xjf9#fj" 
-    #  to ignore "&feature=related", etc. garbage
-
+  
+    # TODO: parse a YouTube URL into something like "youtube:xjf9#fj" to ignore "&feature=related", etc. garbage
     raise "No URL specified!" if uri.to_s.empty?
+    raise "The URL you submitted is part of this site, #{site_url}, and for obvious reasons we're not gonna pollute the database with garbage entries. Thanks though." if uri.to_s =~ /rickrolldb.com/ #FIXME use site_url
     puts "Entry.create: final url = #{url}"
     
     # create if it doesn't exist yet; just confirm if it does
@@ -63,10 +69,9 @@ class Entries < Application
         req = Net::HTTP.new(uri.host, 80)
         puts req.request_head(uri.path.empty? ? '/' : uri.path)
       rescue
-        raise "This does not appear to actually be a website, or else it's down at the moment. #{$! if Merb.environment == 'development'}<br />Can you reach it?"
+        raise "This does not appear to actually be a website, or else it's down at the moment. <p>#{$! if Merb.environment == 'development'} <p>Please contact us w/ the URL if you think you've received this in error. <br />(email link at the bottom of the page)"
       end
       
-      ## we're OK, create the entry
       @entry = Entry.new(params[:entry])
       @entry.url = url if @entry.url != url # checking in case we're not using params[:entry][:url] (e.g. via bookmarklet)
       if @entry.save
@@ -79,8 +84,11 @@ class Entries < Application
     else # it already exists, just confirm it
       redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
     end
+    
+    ## expire cache
+    expire_action(:index)
   rescue
-    render :inline => "Error: #{$!}"
+    render :inline => "<h3>Error!</h3> <p>#{$!}</p>"
   end
   
   def edit
@@ -137,7 +145,7 @@ class Entries < Application
       @entry.save
     else
       # raise "You've already flagged this entry. Your IP: #{ip}"
-      raise "already voted"
+      raise "already voted!"
     end
       
     # redirect url(:entry, @entry)

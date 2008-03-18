@@ -17,25 +17,28 @@
 
 <div id="entries">
 
-	<div class="navigation">
-	<h2>		
-		<% last_page = (@all_entries.length / @limit).ceil -%>
+	<!-- pagination -->
+	<div class="navigation"><h2>		
+		<% 
+			num_entries = Entry.count
+			last_page = (num_entries / @limit).ceil 
+		-%>
 		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
 		<%# TODO use url() for the /page/:page URL; also below w/ prev link %>
 		<div class="prevnext next"><%= @page < last_page ? link_to('&raquo', "/page/#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
-  	<div class="floatRight" id="page-info">
+		<div class="floatRight" id="page-info">
 			The Culprits <br />
 	  	<small>
-				<%= @all_entries.length %> submitted; <%= @all_entries.select { |e| e.confirmed? }.length %> confirmed
-			(page <%= @page %> of <%= last_page %>)
+				<%= num_entries %> submitted;
+				page <%= @page %> of <%= last_page %>
 			</small>
 		</div>
 		<div class="prevnext prev"><%= @page > 1 ? link_to('&laquo', "/page/#{@page - 1}", :title => 'Previous page') : '&laquo;' %></div>
-	</h2>
-	</div>
-	
+	</h2></div>
+
+	<!-- rickrolls themselves -->
 	<ul>
-	<% @entries.sort_by { |e| e.created_at }.reverse.each do |entry| -%>
+	<% @entries.each do |entry| -%>
 		<li id="entry-<%= entry.id %>">
 			<a href="http://<%= entry.url %>" rel="nofollow"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
 			
@@ -95,7 +98,8 @@
 		</li>
 	
 	
-	<% end -%>
+	<% end unless @entries.nil? -%>
+	<%= '<h3>No entries!</h3>' if @entries.nil? or @entries.empty? %>
 	</ul>
 </div> <!-- /#entries -->
 
