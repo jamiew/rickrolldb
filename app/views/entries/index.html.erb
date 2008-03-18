@@ -1,10 +1,11 @@
 <%# index for entries %>
 
 <div id="add">
-	<form method="POST" action="<%= url(:entries) %>">
+	<form method="post" action="<%= url(:entries) %>">
 		<% entry = Entry.new %>
 		<label for="entry[url]">Rickroll URL</label>
 		<input type="text" name="entry[url]" size="25" class="large required clear-on-click" value="http://" />
+		<input type="hidden" name="blah" value="test" />
 		<input type="submit" name="submit" value="submit" class="submit" />
 	</form>
 		
@@ -23,7 +24,7 @@
 			num_entries = Entry.count
 			last_page = (num_entries / @limit).ceil 
 		-%>
-		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of updates & votes" /></a>
+		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of new rickrolls" /></a>
 		<%# TODO use url() for the /page/:page URL; also below w/ prev link %>
 		<div class="prevnext next"><%= @page < last_page ? link_to('&raquo', "/page/#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
 		<div class="floatRight" id="page-info">

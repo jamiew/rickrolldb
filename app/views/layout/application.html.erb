@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
   <title><%= page_title %></title>
@@ -8,7 +8,7 @@
 
   <link rel="alternate" type="application/rss+xml" title="RickBlock updates feed" href="/rss" />
 
-  <link rel="stylesheet" href="/stylesheets/rickblock.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="/stylesheets/rickblock.css" type="text/css" media="screen" charset="utf-8" />
 	
   <script src="/javascripts/jquery.pack.js" type="text/javascript" charset="utf-8"></script>
   <script src="/javascripts/jquery.dimensions.js" type="text/javascript" charset="utf-8"></script>
@@ -22,11 +22,11 @@
 	  <div id="header">
 		
 			<div id="title">
-				<a href="/"><img src="/images/rick-donotwant-slice-sm.jpg" alt="The #1 Rickroll Blocker" title="The #1 Rickroll Blocker" border="0" class="logo floatLeft" /></a>
+				<a href="/"><img src="/images/rick-donotwant-slice-sm.jpg" alt="The #1 Rickroll Blocker" title="The #1 Rickroll Blocker" class="logo floatLeft" /></a>
 				<br />
 				
 		  	<h1><a href="/">Rickroll Database</a></h1>
-				<h2>Saving the Internets... one roll at a time.</a></h2>
+				<h2>Saving the Internets... one roll at a time.</h2>
 			</div>
 	
 			<!-- status -->
@@ -42,6 +42,7 @@
 						and subscribing to the rickblock list</li>
 					<li>Help verify the database by confirming or disputing entries</li>
 					<li>What's a rickroll? Watch <a href="http://youtube.com/watch?v=KT--CsBh5TM" title="Rickroll 101, narrp">Rocketboom Explains Rickroll</a></li>
+				</ul>
 			</div>
 
 			<!-- linx -->
@@ -50,7 +51,7 @@
 				<%= link_to 'Install AdBlockPlus', 'https://addons.mozilla.org/en-US/firefox/downloads/file/19510/adblock_plus-0.7.5.3-fx+tb+sm+fl.xpi', :class => 'ricklist' %>
 				<br />
 				
-				<%= link_to 'Subscribe to RickBlock', 'abp://subscribe/?location=http%3A%2F%2Frickrolldb.com%2Fricklist.txt&title=RickBlock.com/ricklist.txt', :class => 'subscribe' %>
+				<%= link_to 'Subscribe to RickBlock', 'abp://subscribe/?location=http%3A%2F%2Frickrolldb.com%2Fricklist.txt&amp;title=RickBlock.com/ricklist.txt', :class => 'subscribe' %>
 				<!-- <%= link_to 'RICKLIST.TXT', '/ricklist.txt', :class => 'ricklist' %> -->
 
 				<br /><br />
