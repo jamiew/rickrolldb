@@ -9,7 +9,11 @@ class Entries < Application
     # approx. 2x faster to add 20 queries for each flag. O_o
     # TODO do a Flag.find(:all) w/ the mapped entry_id's and <=>
     # :include => [:flags], 
-    @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset)
+    if params[:format] == 'text'
+      @entries = Entry.find(:all)
+    else # limit it...
+      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset)
+    end
     render @entries
   end
   
