@@ -6,11 +6,12 @@ module Merb
     # site-related
     def page_title
       title = "Rickroll Database: "
-      if false
-        title << "..."
+      if not @entry.nil?
+        title << "##{@entry.id}, #{@entry.url}"
       else
         title << "never get rickroll'd again"
       end
+      title << " (page #{@page})" if @page and @page > 1
       title
     end
 
@@ -28,10 +29,9 @@ module Merb
     end
 
 
-    # URL shortcuts -- Merb could use a model func for generating its ID, TODO
+    # full URL shortcuts
     def entry_url(entry)
-      #url( :entry, :id => entry.stub )
-      url( :entry, :id => entry.id )
+      "http://#{site_url}/#{url(:entry, entry)}"
     end
 
     # bookmarklet URL

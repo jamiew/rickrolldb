@@ -5,22 +5,20 @@ require 'rss/maker'
 content = RSS::Maker.make("2.0") { |m|
   m.channel.title = "RickBlock updates"
   m.channel.link = "http://rickrolldb.com/rss"
-  m.channel.description = "Latest updates to the rickroll blacklist database, the #1 weapon in the war on rickroll"
+  m.channel.description = "Latest updates to the rickroll database, the #1 weapon in the war on rickroll"
   # m.items.do_sort = true # sort items by date
 
   @entries.each { |entry|
     i = m.items.new_item
     i.title = entry.url
-    i.link = url(:entry, entry)
+    i.link = entry_url(entry)
     last_flag = entry.flags.last
-    i.description = "
-    now #{entry.confirmations.length} confirmations, #{entry.disputes.length} disputes <br />
+    i.description = 
+		"#{entry.confirmations.length} confirmations, #{entry.disputes.length} disputes <br />
     blacklisted? #{entry.confirmed? ? 'yep' : 'nope'}
-
-		<p>#{link_to '&raquo; Comments <br /> <img src=\"#{entry.thumbnail}\" />', url(:entry, entry)}</p>
-"
-    #i.date = Time.now # they don't give us a time, bastards
-    i.date = last_flag.timestamp rescue Time.now
+		<p>#{link_to '&raquo; Comments <br /> <img src="'+entry.thumbnail+'" alt="" title="" />', entry_url(entry)}</p>"
+    # i.date = last_flag.timestamp rescue Time.now
+		i.date = entry.created_at rescue Time.now # i can't decide if the RSS should be busy or slow
   }
 }
 %>

@@ -50,8 +50,7 @@
 				-%>
 				<span class="title"><%= link_to display, entry.link_url, :rel => 'nofollow' %></span>
 				<span class="created_at">
-					added <%= timeago(entry.created_at) %>
-					<% unless entry.updated_at.nil? or entry.created_at == entry.updated_at %>, updated <%= timeago(entry.updated_at) %><% end %>
+					added <%= timeago(entry.created_at) %><% unless entry.updated_at.nil? or entry.created_at == entry.updated_at %>; last flagged <%= timeago(entry.updated_at) %><% end %>
 				</span>
 				<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
 			<div class="flags">			
@@ -85,12 +84,9 @@
 			<div class="stats">
 				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
 				<% width = 300; height = 10 #FIXME %>
-				<% disputage = entry.controversy %>
-				<%#= "disputage: #{disputage}" %>
-				<% disputage = 1 if disputage == 0 or disputage.nan? #... %>
 				<div style="float: right; display: inline; width: <%= width - 1%>px; height: 3px; background-color: #aaa;">&nbsp;</div>
-				<div style="background-color: #fbb; float: right; clear: right; display: inline; width: <%= ((disputage) * width).to_i %>px; height: <%= height %>px;">&nbsp;<%#= ("%.2f" % disputage) %></div>
-				<div style="background-color: #bfb;float: right; display: inline; width: <%= ((1.0-disputage) * width).to_i %>px; height: <%= height %>px; ">&nbsp;<%#= ("%.2f" % (1.0-disputage)) %></div>
+				<div style="background-color: #fbb; float: right; clear: right; display: inline; width: <%= (entry.controversy * width).to_i %>px; height: <%= height %>px;">&nbsp;<%#= ("%.2f" % entry.controversy) %></div>
+				<div style="background-color: #bfb;float: right; display: inline; width: <%= ((1.0-entry.controversy) * width).to_i %>px; height: <%= height %>px; ">&nbsp;<%#= ("%.2f" % (1.0-entry.controversy)) %></div>
 			</div> <!-- /.stats -->
 
 		
@@ -105,6 +101,7 @@
 
 
 <!-- prev/next again -->
+<br class="clear" />
 <div class="navigation">
   <h2>
   <div class="prevnext next"><%= @page < last_page ? link_to('&raquo', "/page/#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>

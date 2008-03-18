@@ -19,10 +19,16 @@ class Entry < ActiveRecord::Base
 
   # how disputed is this entry?
   def controversy
-    disputes.length < confirmations.length ? 
-      disputes.length.to_f/flags.length.to_f : confirmations.length.to_f/flags.length.to_f
-  rescue ##ZeroDivisionError
-    0
+    if disputes.length != confirmations.length
+      ratio = disputes.length < confirmations.length ? 
+        disputes.length.to_f/flags.length.to_f : confirmations.length.to_f/flags.length.to_f
+      ratio = 1.0 if ratio.to_f.nan? or confirmations.length == 0 # exceptions, not proper
+    else
+      ratio = 0.5
+    end
+    ratio
+  rescue ZeroDivisionError
+    0.0
   end
   
   # shortcuts to flag creation for this entry
@@ -52,7 +58,7 @@ class Entry < ActiveRecord::Base
   
   # for a nice clean URL
   def to_param
-    # TODO: use the URL... need regex in the routes
+    # TODO: would use the URL but need regex in the routes
     # coder = HTMLEntities.new
     # coder.encode( url.gsub('http://', ''), :decimal)
     id
@@ -60,31 +66,38 @@ class Entry < ActiveRecord::Base
   alias :slug :to_param
   
   
-  # screenshots for this entry
-  def thumbnail
-    width = 250
+  # screenshots (thumbnails) for this entry
+  def self.thumbnail_width; 250; end
+  def self.thumbnail_height; Entry.thumbnail_width; end
   
+  def thumbnail
     # use a local screenshot if we've got it
-    #if File.exists?(local_thumbnail_path)
-    if false
+    if File.exists?(local_thumbnail_path)
       local_thumbnail
     else # fallback to a thumbnail service
-      "http://www.thumbalizr.com/api/?url=http://#{url.gsub(/^http\:\/\//,'')}&width=#{width}"
-      # "http://images.websnapr.com/?size=s&url=http://#{url.gsub(/^http\:\/\//,'')}"
-      # TODO save from thumbnail service too!
+      remote_thumbnail
     end
   rescue
+    puts $!
     "/images/screenshot-default.png"
   end
   
   # or stored locally using the rake task, see /lib/tasks/screenshots.rake
   def local_thumbnail
-    "/screenshots/#{id}-clipped.png"    
+    ## when using webkit2png
+    # "/screenshots/#{id}-clipped.png"
+    ## when caching from thumbalizr
+    "/screenshots/#{id}.jpg"
   end
   def local_thumbnail_path
     Merb.root+"/public"+local_thumbnail
   end
   
+  # from a third-party service
+  def remote_thumbnail(width = Entry.thumbnail_width)
+    "http://www.thumbalizr.com/api/?url=http://#{url.gsub(/^http\:\/\//,'')}&width=#{width}"    
+    # "http://images.websnapr.com/?size=s&url=http://#{url.gsub(/^http\:\/\//,'')}"
+  end
   
   # demographics
   ## TODO: voter info (anonymized?), 
