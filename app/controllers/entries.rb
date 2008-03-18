@@ -58,7 +58,9 @@ class Entries < Application
       raise "you submitted a malformed URL: #{url}"
     end
   
-    # TODO: parse a YouTube URL into something like "youtube:xjf9#fj" to ignore "&feature=related", etc. garbage
+    # cleanup YouTube URLs. TODO handle more...
+    url = "http://youtube.com/watch?v=#{url.scan(/v=([^&]+)/)[0].to_s}" if url =~ /youtube\.com/
+
     raise "No URL specified!" if uri.to_s.empty?
     raise "The URL you submitted is part of this site, #{site_url}, and for obvious reasons we're not gonna pollute the database with garbage entries. Thanks though." if uri.to_s =~ /rickrolldb.com/ #FIXME use site_url
     puts "Entry.create: final url = #{url}"
