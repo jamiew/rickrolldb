@@ -31,7 +31,7 @@ module Merb
 
     # full URL shortcuts
     def entry_url(entry)
-      "http://#{site_url}/#{url(:entry, entry)}"
+      "http://#{site_url}#{url(:entry, entry)}"
     end
 
     # bookmarklet URL
