@@ -33,7 +33,8 @@ Merb::Router.prepare do |r|
   r.match('/page/:page').to(:controller => 'entries', :action =>'index')
   
   # specific routes
-  r.match('/ricklist.txt').to(:controller => 'entries', :action =>'index', :format => 'text')
+  r.match('/ricklist.txt').to(:controller => 'entries', :action => 'index', :format => 'text')
+  r.match('/rickblock.txt').to(:controller => 'entries', :action => 'index', :format => 'text', :rickblock => 'true')
   r.match(/\/(rss|atom|feed)/).to(:controller => 'entries', :action => 'index', :format => 'xml')
   
   r.resources :user do |users|

@@ -1,3 +1,7 @@
 <% @entries.select { |e| e.confirmed? }.each do |entry| -%>
+<% if params[:rickblock] -%>
+<%= entry.url %>
+<% else -%>
 <%= entry.blacklist_url.strip %>
+<% end -%>
 <% end -%>

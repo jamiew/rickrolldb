@@ -1,8 +1,16 @@
-/************************/
-/* rickrolldb css       */
-/* by jamei wilkinson   */
-/* http://tramchase.com */
-/************************/
+/**
+ ____   ____    __  __  _  ____    ___   _      _     
+|    \ l    j  /  ]|  l/ ]|    \  /   \ | T    | T    
+|  D  ) |  T  /  / |  ' / |  D  )Y     Y| |    | |    
+|    /  |  | /  /  |    \ |    / |  O  || l___ | l___ 
+|    \  |  |/   \_ |     Y|    \ |     ||     T|     T
+|  .  Y j  l\     ||  .  ||  .  Yl     !|     ||     |
+l__j\_j|____j\____jl__j\_jl__j\_j \___/ l_____jl_____j
+
+* rickrolldb css
+* by jamie wilkinson <http://tramchase.com> 2007
+*
+*/
 
 
 * {
@@ -419,7 +427,7 @@ ul.entry-info li {
 }  
 .navigation h2 {
   height: 42px;
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
   padding-top: 5px;
 }
