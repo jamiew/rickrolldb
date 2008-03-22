@@ -11,10 +11,17 @@ class Entry < ActiveRecord::Base
   
   # % of votes needed before it is confirmed (rounded down)
   def confirmation_threshold
-    0.6
+    0.66
+  end
+  def minimum_vote_count
+    8
   end
   def confirmed?
-    confirmations.length > (flags.length * confirmation_threshold).floor
+    if flags.length >= minimum_vote_count
+      return confirmations.length > (flags.length * confirmation_threshold).floor
+    else
+      return false
+    end
   end
 
   # how disputed is this entry?
