@@ -14,7 +14,7 @@ class Entry < ActiveRecord::Base
     0.66
   end
   def minimum_vote_count
-    8
+    12
   end
   def confirmed?
     if flags.length >= minimum_vote_count
