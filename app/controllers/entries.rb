@@ -37,11 +37,9 @@ class Entries < Application
     #only_provides :html_escape
     print 'Entry.new... '
     puts params.inspect
-    if not params[:url].empty?
-      puts "IF!"
+    if not params[:url].nil? and not params[:url].empty?
       create      
     else 
-      puts "ELSE!"
       @entry = Entry.new(params[:entry])
       render
     end
@@ -83,7 +81,7 @@ class Entries < Application
       @entry.url = url if @entry.url != url # checking in case we're not using params[:entry][:url] (e.g. via bookmarklet)
       if @entry.save
         # also give it a confirm by redirecting to confirm URL
-      	redirect url(:controller => :entries, :action => :show, :id => @entry.id)
+      	redirect url(:entry, @entry)
       else
         # render :action => :new
         render :inline => "Error creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"

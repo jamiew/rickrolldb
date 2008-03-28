@@ -8,7 +8,7 @@ class Application < Merb::Controller
 
   # authentication
   def authenticate
-    render :inline => "No."
+    throw :halt, "You don't have permissions to do that!"
   end
   
 end 
