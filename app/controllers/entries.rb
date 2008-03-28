@@ -1,5 +1,6 @@
 class Entries < Application
   provides :xml, :js, :yaml, :text
+  before :authenticate, :only => [:edit, :update, :destroy]
   # cache_action :index
 
   def index

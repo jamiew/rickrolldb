@@ -1,5 +1,6 @@
 class Users < Application
   provides :xml, :js, :yaml
+  before :authenticate, :only => [:edit, :update, :destroy]
   
   def index
     @users = User.find(:all)

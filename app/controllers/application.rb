@@ -5,5 +5,10 @@ class Application < Merb::Controller
   def site_url
     "rickrolldb.com"
   end
+
+  # authentication
+  def authenticate
+    render :inline => "No."
+  end
   
 end 
