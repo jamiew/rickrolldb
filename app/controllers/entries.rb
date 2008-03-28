@@ -99,27 +99,28 @@ class Entries < Application
   end
   
   def edit
-    only_provides :html
-    @entry = Entry.find(params[:id])
-    render
+    #only_provides :html
+    #@entry = Entry.find(params[:id])
+    #render
+    raise BadRequest
   end
   
   def update
-    @entry = Entry.find(params[:id])
-    if @entry.update_attributes(params[:entry])
-      redirect url(:entry, @entry)
-    else
+    #@entry = Entry.find(params[:id])
+    #if @entry.update_attributes(params[:entry])
+    #  redirect url(:entry, @entry)
+    #else
       raise BadRequest
-    end
+    #end
   end
   
   def destroy
-    @entry = Entry.find(params[:id])
-    if @entry.destroy
-      redirect url(:entries)
-    else
+    #@entry = Entry.find(params[:id])
+    #if @entry.destroy
+    #  redirect url(:entries)
+    #else
       raise BadRequest
-    end
+    #end
   end
   
   

@@ -28,26 +28,27 @@ class Users < Application
   end
   
   def edit
-    only_provides :html
-    @user = User.find(params[:id])
-    render
+    #only_provides :html
+    #@user = User.find(params[:id])
+    #render
+    raise BadRequest
   end
   
   def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      redirect url(:user, @user)
-    else
+    #@user = User.find(params[:id])
+    #if @user.update_attributes(params[:user])
+    #  redirect url(:user, @user)
+    #else
       raise BadRequest
-    end
+    #end
   end
   
   def destroy
-    @user = User.find(params[:id])
-    if @user.destroy
-      redirect url(:users)
-    else
+    #@user = User.find(params[:id])
+    #if @user.destroy
+    #  redirect url(:users)
+    #else
       raise BadRequest
-    end
+    #end
   end
 end
