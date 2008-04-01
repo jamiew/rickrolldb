@@ -39,7 +39,7 @@
 	<ul>
 	<% @entries.each do |entry| -%>
 		<li id="entry-<%= entry.id %>">
-			<a href="http://<%= entry.url %>" rel="nofollow"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
+			<a href="<%= entry.link_url %>" rel="nofollow"><img src="<%= entry.thumbnail %>" alt="" title="" class="screenshot" /></a>
 			
 			<div class="info">			
 				<% 
