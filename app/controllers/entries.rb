@@ -64,8 +64,15 @@ class Entries < Application
     # cleanup YouTube URLs. TODO handle more...
     url = "http://youtube.com/watch?v=#{url.scan(/v=([^&]+)/)[0].to_s}" if url =~ /youtube\.com/
 
+    # checks
     raise "No URL specified!" if uri.to_s.empty?
-    raise "The URL you submitted is part of this site, #{site_url}, and for obvious reasons we're not gonna pollute the database with garbage entries. Thanks though." if uri.to_s =~ /(rickrolldb|rickblock).com/ #FIXME use site_url
+
+    # TODO add site blacklisting & IP blacklisting
+    raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org)/
+
+    # TODO add IP blacklisting
+    raise '<img src="/images/banhammer.jpg" alt="You have been banned" />.' if request.remote_ip =~ /(207\.190\.226\.22)/
+
     puts "Entry.create: final url = #{url}"
     
     # create if it doesn't exist yet; just confirm if it does
