@@ -7,13 +7,17 @@ class Entries < Application
     @limit = 20 # FIXME
     @page = (params[:page] || 1).to_i
     @offset = (@page-1)*@limit
-    # approx. 2x faster to add 20 queries for each flag. O_o
-    # TODO do a Flag.find(:all) w/ the mapped entry_id's and <=>
-    # :include => [:flags], 
+
+    # attempt to make plentiful the AR object cache; way faster than joins
     if params[:format] == 'text'
       @entries = Entry.find(:all)
+      Flag.find(:all)
     else # limit it...
+      # mysql's offset is ridiculously shitty. bette to use "id > x AND id < x+y" if possible
+      # but this assumes we have no missing indices in our primary key,
+      # and requires figuring out what the max value of such is
       @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset)
+      Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     end
     render @entries
   end
@@ -61,7 +65,7 @@ class Entries < Application
     url = "http://youtube.com/watch?v=#{url.scan(/v=([^&]+)/)[0].to_s}" if url =~ /youtube\.com/
 
     raise "No URL specified!" if uri.to_s.empty?
-    raise "The URL you submitted is part of this site, #{site_url}, and for obvious reasons we're not gonna pollute the database with garbage entries. Thanks though." if uri.to_s =~ /rickrolldb.com/ #FIXME use site_url
+    raise "The URL you submitted is part of this site, #{site_url}, and for obvious reasons we're not gonna pollute the database with garbage entries. Thanks though." if uri.to_s =~ /(rickrolldb|rickblock).com/ #FIXME use site_url
     puts "Entry.create: final url = #{url}"
     
     # create if it doesn't exist yet; just confirm if it does
@@ -78,6 +82,7 @@ class Entries < Application
       end
       
       @entry = Entry.new(params[:entry])
+      @entry.ip = request.remote_ip
       @entry.url = url if @entry.url != url # checking in case we're not using params[:entry][:url] (e.g. via bookmarklet)
       if @entry.save
         # also give it a confirm by redirecting to confirm URL

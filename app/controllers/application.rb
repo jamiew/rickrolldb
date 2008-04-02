@@ -3,7 +3,7 @@ class Application < Merb::Controller
   
   # sitewide config
   def site_url
-    "rickrolldb.com"
+    "rickblock.com"
   end
 
   # authentication
