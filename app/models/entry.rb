@@ -27,8 +27,7 @@ class Entry < ActiveRecord::Base
   # how disputed is this entry?
   def controversy
     if disputes.length != confirmations.length
-      ratio = disputes.length < confirmations.length ? 
-        disputes.length.to_f/flags.length.to_f : confirmations.length.to_f/flags.length.to_f
+      ratio = disputes.length.to_f/flags.length.to_f
       ratio = 1.0 if ratio.to_f.nan? or confirmations.length == 0 # exceptions, not proper
     else
       ratio = 0.5
