@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "comments", :force => true do |t|
     t.integer "entry_id"
@@ -25,10 +25,12 @@ ActiveRecord::Schema.define(:version => 6) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ip"
+    t.string   "status",     :default => "pending"
   end
 
   add_index "entries", ["created_at"], :name => "index_entries_on_created_at"
   add_index "entries", ["updated_at"], :name => "index_entries_on_updated_at"
+  add_index "entries", ["status"], :name => "index_entries_on_status"
 
   create_table "flags", :force => true do |t|
     t.integer  "entry_id"

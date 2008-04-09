@@ -13,10 +13,10 @@ class Entries < Application
       @entries = Entry.find(:all)
       Flag.find(:all)
     else # limit it...
-      # mysql's offset is ridiculously shitty. bette to use "id > x AND id < x+y" if possible
+      # mysql's offset is ridiculously shitty. better to use "id > x AND id < x+y" if possible
       # but this assumes we have no missing indices in our primary key,
       # and requires figuring out what the max value of such is
-      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset)
+      @entries = Entry.find_all_by_status('pending', :order => 'created_at DESC', :limit => @limit, :offset => @offset)
       Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     end
     render @entries
