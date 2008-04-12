@@ -19,7 +19,7 @@
 	<!-- pagination -->
 	<div class="navigation"><h2>		
 		<% 
-			num_entries = Entry.count(:id)
+			num_entries = Entry.count(:id, :conditions => "status = 'pending'")
 			last_page = (num_entries / @limit).ceil 
 		-%>
 		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of new rickrolls" /></a>
@@ -116,7 +116,6 @@
 
 
 <!-- add disqus comment counts -->
-<!--
 <script type="text/javascript">
 //<[CDATA[
 (function() {
@@ -131,5 +130,4 @@
 	})();
 //]]>
 </script>
--->
 
