@@ -68,10 +68,10 @@ class Entries < Application
     raise "No URL specified!" if uri.to_s.empty?
 
     # TODO add site blacklisting & IP blacklisting
-    raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org)/
+    raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org|zoy\.org)/
 
     # TODO add IP blacklisting
-    raise '<img src="/images/banhammer.jpg" alt="You have been banned" />.' if request.remote_ip =~ /(207\.190\.226\.22)/
+    raise '<img src="/images/banhammer.jpg" alt="You have been banned" />.' if request.remote_ip =~ /(207\.190\.226\.22|24\.63\.62\.169)/
 
     puts "Entry.create: final url = #{url}"
     

@@ -11,13 +11,13 @@ class Entry < ActiveRecord::Base
   
   # % of votes needed before it is confirmed (rounded down)
   def confirmation_threshold
-    0.66
+    0.57
   end
   def minimum_vote_count
     12
   end
   def confirmed?
-    if flags.length >= minimum_vote_count
+    if flags.length >= minimum_vote_count and status != 'hidden'
       return confirmations.length > (flags.length * confirmation_threshold).floor
     else
       return false
