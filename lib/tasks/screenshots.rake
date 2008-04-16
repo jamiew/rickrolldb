@@ -9,5 +9,5 @@ end
 
 task :cache_remote_screenshots => :merb_env do
   clobber = false
-  Entry.find(:all).each { |entry| print "#{entry.id}... "; `wget "#{entry.remote_thumbnail}" -O "public/screenshots/#{entry.id}.jpg"` unless File.exists?(entry.local_thumbnail_path) and not clobber; puts "Done!" }
+  Entry.find(:all).each { |entry| print "#{entry.id}... "; `/usr/local/bin/wget "#{entry.remote_thumbnail}" -O "public/screenshots/#{entry.id}.jpg"` unless File.exists?(entry.local_thumbnail_path) and not clobber; puts "Done!" }
 end
