@@ -54,6 +54,7 @@ class Entry < ActiveRecord::Base
       "youtube.com/get_video?video_id=#{ytid}"
     else # it's a full domain name, let's hack the page up
       "#{raw}#body\n#{raw}$script"
+      #"#{raw}$script\n#{raw}$image\n#{raw}$object"
     end
   end
   
