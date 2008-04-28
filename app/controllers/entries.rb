@@ -8,17 +8,16 @@ class Entries < Application
     @page = (params[:page] || 1).to_i
     @offset = (@page-1)*@limit
 
-    # attempt to make plentiful the AR object cache; way faster than joins
+    # make plentiful the AR object cache; way faster than joins
     if params[:format] == 'text'
-      @entries = Entry.find(:all)
-      Flag.find(:all)
+      @entries = Entry.find(:all, :conditions => 'status != "hidden"')
     else # limit it...
       # mysql's offset is ridiculously shitty. better to use "id > x AND id < x+y" if possible
       # but this assumes we have no missing indices in our primary key,
       # and requires figuring out what the max value of such is
       @entries = Entry.find_all_by_status('pending', :order => 'created_at DESC', :limit => @limit, :offset => @offset)
-      Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     end
+    Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     render @entries
   end
   
@@ -51,7 +50,9 @@ class Entries < Application
   
   def create
     print "Entry.create.... "
+    #raise '<img src="http://tramchase.com/images/lolz/lol-not-again-RICKROLL.png" alt="" title="this is what you get" />'
     puts params.inspect
+
     begin
       url = params[:url] || params[:entry][:url]
       url = "http://#{url}" unless url =~ /^http\:\/\// # prefix w/ http if necessary
@@ -71,7 +72,11 @@ class Entries < Application
     raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org|zoy\.org)/
 
     # TODO add IP blacklisting
-    raise '<img src="/images/banhammer.jpg" alt="You have been banned" />.' if request.remote_ip =~ /(207\.190\.226\.22|24\.63\.62\.169)/
+    banned = ['207.190.226.22', '24.63.62.169', '67.181.5.112', 
+		# sunday april 20th ish
+		'86.156.61.185', '82.32.90.49', '71.169.42.191', '82.22.69.73', '76.170.93.222', '82.32.90.49', '129.1.206.122' 
+             ]
+    raise '<img src="/images/banhammer.jpg" alt="You have been banned" />.' if banned.include?(request.remote_ip)
 
     puts "Entry.create: final url = #{url}"
     
@@ -144,6 +149,7 @@ class Entries < Application
   def dispute
     params[:flag_name] = 'confirm:false'
     flag
+    #render :text => 'lol'
   end
     
   def flag # TODO

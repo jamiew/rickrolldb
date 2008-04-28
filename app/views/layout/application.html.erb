@@ -51,12 +51,12 @@
 						and subscribing to the rickblock blacklist &rarr;</li>
 					<li>Help verify the database by confirming or disputing entries</li>
 					<li>What's a rickroll? Watch <a href="http://youtube.com/watch?v=KT--CsBh5TM" title="Rickroll 101, narrp">Rocketboom Explains Rickroll</a></li>
-					<li id="bookmarklets">
-						<!-- bookmarklets for the famo -->
-						<!-- speed up loading using iframe directly instead of JS -->
+                                       <!-- bookmarklets for the famo -->
+                                       <!-- speed up loading using iframe directly instead of JS -->
+					<!--<li id="bookmarklets">
 						<iframe src="http://digg.com/tools/diggthis.php?u=http%3A//rickrolldb.com&amp;k=%23ffffff&amp;s=compact" frameborder="0" height="20" scrolling="no" width="100"></iframe>
 						<iframe src="http://reddit.com/button?t=1&amp;url=http%3A%2F%2Frickrolldb.com" frameborder="0" height="20" scrolling="no" width="100"></iframe>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 
@@ -74,9 +74,11 @@
 				<%#= link_to 'rickroll-bookmarklet', bookmarklet_url, :class => 'ricklist', :style => 'margin-bottom: -10pt;' %> <br />
 				<span style="font-size: 8pt; font-style: italic; margin: 0px 0 0 37px; color: #ccc;">drag to yr bookmarks bar</span>
 -->
+<!--
 				<div class="news">
 				<em><strong>Apr. 16th</strong>: "not a valid filter list" issue fixed; you might need to re-subscribe</em>
 				</div>
+-->
 				
 			</div>
 			
@@ -93,7 +95,10 @@
 			<big><%= link_to 'about, thanks, & howto', '/about' %> </big>
 			<!-- - <%= link_to 'privacy policy', '/privacy' %>  --> <!-- we don't use much, no need -->
 			<br /><br />
-	    copyfree 2007-2008 <a href="http://tramchase.com">Jamie Wilkinson</a> &raquo; <script type="text/javascript">document.write('<a href="mailto:&#106;&#064;&#116;&#114;&#097;&#109;&#099;&#104;&#097;&#115;&#101;&#046;&#099;&#111;&#109;">email me</a>');</script><br />
+
+	    copyfree 2007-2008 <a href="http://tramchase.com">Jamie Wilkinson</a> 
+		<%# &raquo; <script type="text/javascript">document.write('<a href="mailto:&#106;&#064;&#116;&#114;&#097;&#109;&#099;&#104;&#097;&#115;&#101;&#046;&#099;&#111;&#109;">email me</a>');</script><br /> %>
+		&raquo; <a href="http://tramchase.com/contact">email me</a><br />
 	    <br />
 		<%#
             + <strong><a href="http://dev.fffff.at/projects/rickroll-database" title="RICKBLOCK DEVELOPMENT">source code</a></strong> (ruby on merb) +
