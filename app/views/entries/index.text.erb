@@ -1,3 +1,3 @@
-<% @entries.select { |e| e.confirmed? }.collect { |entry| entry.blacklist_url.strip }.uniq.each do |url| -%>
+<% @entries.collect { |entry| entry.blacklist_url.strip }.uniq.each do |url| -%>
 <%= url unless url.empty? -%>
 <% end -%>

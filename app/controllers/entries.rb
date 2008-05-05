@@ -10,7 +10,8 @@ class Entries < Application
 
     # make plentiful the AR object cache; way faster than joins
     if params[:format] == 'text'
-      @entries = Entry.find(:all, :conditions => 'status != "hidden"')
+      @entries = Entry.find_all_by_status('confirmed')
+      # .select { |e| e.confirmed? }
     else # limit it...
       # mysql's offset is ridiculously shitty. wonder if it could be replaced w/ inequalities...
       @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"')

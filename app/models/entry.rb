@@ -24,6 +24,7 @@ class Entry < ActiveRecord::Base
     end
   end
 
+
   # how disputed is this entry?
   def controversy
     if disputes.length != confirmations.length
