@@ -3,8 +3,18 @@ task :entry_cleanup => :merb_env do
 
   # hide entries w/ enough disputes > confirms
   minimum = 5 #FIXME make dynamic
-  Entry.find_all_by_status('pending').each { |e| if e.flags.length > minimum and e.disputes.length+1 > e.confirmations.length; puts "Hiding entry #{e.id} => #{e.url}"; e.status = 'hidden'; e.save; end}
-
-  # other stuff?
+  entries = Entry.find_all_by_status('pending')
+  puts "Found #{entries.length} pending entries..."
+  entries.each do |e| 
+    if e.flags.length > minimum and e.disputes.length+1 > e.confirmations.length
+      puts "Hiding entry #{e.id} => #{e.url}"
+      e.status = 'hidden'
+    elsif e.confirmed?
+      puts "Confirming entry #{e.id} => #{e.url}"
+      e.status = 'confirmed'
+    else
+      puts "Ignoring #{e.id}: #{e.flags.length} flags, (+)#{e.confirmations.length} (-)#{e.disputes.length}"
+    end
+  end
 end
 
