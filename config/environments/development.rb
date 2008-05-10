@@ -1,2 +1,2 @@
 puts "Loaded DEVELOPMENT Environment..."
-Merb.logger.level = Merb::Logger::DEBUG
+#Merb.logger.level = Merb::Logger::DEBUG
