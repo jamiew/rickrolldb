@@ -1,5 +1,5 @@
 module Merb
-module EntriesHelper
+  module EntriesHelpers
   
   end
 end

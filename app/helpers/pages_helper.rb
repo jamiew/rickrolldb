@@ -1,5 +1,5 @@
 module Merb
-module PagesHelper
+  module PagesHelpers
   
   end
 end
