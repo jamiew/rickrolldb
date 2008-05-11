@@ -1,3 +1,3 @@
-#!/usr/local/bin/bash
-cd /usr/home/jamie/apps/rickrolldb
-/usr/local/bin/rake -t entry_cleanup
+#!/bin/bash
+cd /home/jamie/rickrolldb
+/usr/bin/rake -t entry_cleanup

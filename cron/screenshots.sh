@@ -1,3 +1,3 @@
-#!/usr/local/bin/bash
-cd /usr/home/jamie/apps/rickrolldb
-/usr/local/bin/rake -t cache_remote_screenshots
+#!/bin/bash
+cd /home/jamie/rickrolldb
+/usr/bin/rake -t cache_remote_screenshots
