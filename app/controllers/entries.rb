@@ -14,7 +14,8 @@ class Entries < Application
       # .select { |e| e.confirmed? }
     else # limit it...
       # mysql's offset is ridiculously shitty. wonder if it could be replaced w/ inequalities...
-      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"', :include => [:flags])
+      #@entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"', :include => [:flags])
+      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"')
     end
     #Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     render
