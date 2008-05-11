@@ -1,3 +1,4 @@
+! <%= @entries.length %> entries
 <% @entries.collect { |entry| entry.blacklist_url.strip }.uniq.each do |url| -%>
-<%= url unless url.empty? -%>
+<%= url unless url.empty? %>
 <% end -%>

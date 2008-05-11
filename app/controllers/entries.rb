@@ -14,15 +14,15 @@ class Entries < Application
       # .select { |e| e.confirmed? }
     else # limit it...
       # mysql's offset is ridiculously shitty. wonder if it could be replaced w/ inequalities...
-      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"')
+      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"', :include => [:flags])
     end
-    Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
-    render @entries
+    #Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
+    render
   end
   
   def xml # FIXME should be raw XML, use .rss
     @entries = Entry.find(:all, :order => 'updated_at DESC', :limit => 12)
-    render @entries
+    render
   end
     
   
@@ -30,7 +30,7 @@ class Entries < Application
     #coder = HTMLEntities.new
     #id = coder.decode( params[:id] )
     @entry = Entry.find(params[:id])
-    render @entry
+    display @entry
   rescue ActiveRecord::RecordNotFound
     raise NotFound
   end
@@ -99,8 +99,7 @@ class Entries < Application
         # also give it a confirm by redirecting to confirm URL
       	redirect url(:entry, @entry)
       else
-        # render :action => :new
-        render :inline => "Error creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
+        return "Error creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
       end
     else # it already exists, just confirm it
       redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
@@ -109,7 +108,7 @@ class Entries < Application
     ## expire cache
     expire_action(:index)
   rescue
-    render :inline => "<h3>Error!</h3> <p>#{$!}</p>"
+    return "<h3>Error!</h3> <p>#{$!}</p>"
   end
   
   def edit
@@ -148,7 +147,6 @@ class Entries < Application
   def dispute
     params[:flag_name] = 'confirm:false'
     flag
-    #render :text => 'lol'
   end
     
   def flag # TODO
@@ -174,14 +172,14 @@ class Entries < Application
     # redirect url(:entry, @entry)
     if request.xhr?
       siblings = Flag.find(:all, :conditions => "entry_id = '#{flag.entry_id}' AND name = '#{flag.name}'")
-      render :text => siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .thanks em').text('Thanks for your vote').fadeIn('fast');</script>", :layout => false
+      return siblings.length.to_s+" <script type=\"text/javascript\">$('li#entry-#{flag.entry_id} .thanks em').text('Thanks for your vote').fadeIn('fast');</script>", :layout => false
     else
       redirect url('/')
     end
   
   rescue
     puts "Problem w/ yr flag sucka: #{$!}"
-    render :text => $!.to_s, :layout => :false
+    return $!.to_s
   end
   
   
