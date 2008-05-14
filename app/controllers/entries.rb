@@ -100,7 +100,7 @@ class Entries < Application
         # also give it a confirm by redirecting to confirm URL
       	redirect url(:entry, @entry)
       else
-        return "Error creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
+        render "Error creating entry: #{@entry.errors.collect { |e| e.to_s }.join(', ')}"
       end
     else # it already exists, just confirm it
       redirect url(:controller => :entries, :action => :confirm, :id => @entry.id)
@@ -109,7 +109,12 @@ class Entries < Application
     ## expire cache
     expire_action(:index)
   rescue
-    return "<h3>Error!</h3> <p>#{$!}</p>"
+    text = "<h3>Error!</h3> <p>#{$!}</p>"
+    if request.xhr? 
+      return text
+    else
+      render text
+    end
   end
   
   def edit
@@ -179,8 +184,12 @@ class Entries < Application
     end
   
   rescue
-    puts "Problem w/ yr flag sucka: #{$!}"
-    return $!.to_s
+    text = "<h3>Error!</h3> #{$!}"
+    if request.xhr?
+      return $!.to_s
+    else
+      render text
+    end
   end
   
   
