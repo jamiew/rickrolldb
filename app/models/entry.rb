@@ -24,6 +24,16 @@ class Entry < ActiveRecord::Base
     end
   end
 
+  # shortcuts to some admin methods
+  def hide!
+    self.status = 'hidden'
+    self.save(false)
+  end
+
+  # fuck fairness. add a grip of disputes
+  def dispute!; 8.times { self.dispute }; end
+  def confirm!; 8.times { self.confirm }; end
+ 
 
   # how disputed is this entry?
   def controversy
@@ -75,7 +85,7 @@ class Entry < ActiveRecord::Base
   
   
   # screenshots (thumbnails) for this entry
-  def self.thumbnail_width; 250; end
+  def self.thumbnail_width; 190; end
   def self.thumbnail_height; Entry.thumbnail_width; end
   
   def thumbnail
