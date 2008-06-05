@@ -69,12 +69,14 @@ class Entries < Application
     raise "No URL specified!" if uri.to_s.empty?
 
     # TODO add site blacklisting & IP blacklisting
-    raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org|zoy\.org)/
+    raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org|zoy\.org|viagra|cialis|partyhard\.biz|encyclopediadramatica\.com)/
 
     # TODO add IP blacklisting
     banned = ['207.190.226.22', '24.63.62.169', '67.181.5.112', 
-		# sunday april 20th ish
-		'86.156.61.185', '82.32.90.49', '71.169.42.191', '82.22.69.73', '76.170.93.222', '82.32.90.49', '129.1.206.122' 
+		# sunday april 20th ish below
+		'86.156.61.185', '82.32.90.49', '71.169.42.191', '82.22.69.73', '76.170.93.222', '82.32.90.49', '129.1.206.122',
+		# wednesday june 5th 2008 below
+		"203.162.2.134", '59.56.159.32', '88.111.32.193', '96.239.137.154', '124.125.85.246', '85.217.43.109', '75.3.243.106', '84.81.126.9'
              ]
     raise '<img src="/images/banhammer.jpg" alt="You have been banned" />.' if banned.include?(request.remote_ip)
 
