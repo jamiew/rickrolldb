@@ -69,7 +69,7 @@ class Entries < Application
     raise "No URL specified!" if uri.to_s.empty?
 
     # TODO add site blacklisting & IP blacklisting
-    raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org|zoy\.org|viagra|cialis|partyhard\.biz|encyclopediadramatica\.com)/
+    raise "Your URL <em>#{url}</em> has been blacklisted. <br /><br /><img src=\"/images/wtf-cat.jpg\" />." if uri.to_s =~ /(rickrolldb\.com|rickblock\.com|nimp\.org|zoy\.org|viagra|cialis|partyhard\.biz|encyclopediadramatica\.com|xeloda|prozac|casino|celexa|gambling|mortgage|xanax|zyban)/
 
     # TODO add IP blacklisting
     banned = ['207.190.226.22', '24.63.62.169', '67.181.5.112', 
