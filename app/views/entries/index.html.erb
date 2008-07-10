@@ -57,7 +57,7 @@
 			<div class="flags">			
 				<span class="confirm"><code>+</code> 
 				  <% if new_voter %>
-				    <%= link_to "IT'S A RICKROLL", url(:confirm_entry, entry), :class => 'flag hijax' %> 
+				    <%= link_to "IT'S A RICKROLL", url(:confirm_entry, entry), :class => 'flag hijax', :rel => 'nofollow' %> 
 			    <% else %>
 			      <strong>confirmations:</strong>
 			    <% end %>
@@ -65,7 +65,7 @@
 		    </span>
 				<span class="dispute"><code>-</code> 
 				  <% if new_voter %>
-  				  <%= link_to "not a rickroll", url(:dispute_entry, entry), :class => 'flag hijax' %> 
+  				  <%= link_to "not a rickroll", url(:dispute_entry, entry), :class => 'flag hijax', :rel => 'nofollow' %> 
   				<% else %>
   				  <strong>disputes:</strong>
   				<% end %>

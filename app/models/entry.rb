@@ -113,7 +113,7 @@ class Entry < ActiveRecord::Base
   
   # from a third-party service
   def remote_thumbnail(width = Entry.thumbnail_width)
-    "http://www.thumbalizr.com/api/?url=http://#{url.gsub(/^http\:\/\//,'')}&width=#{width}"    
+    "http://www.thumbalizr.com/api/?url=http://#{url.gsub(/^http\:\/\//,'')}&width=#{width}&api_key=REDACTED_THUMBALIZR_KEY"    
     #"http://images.websnapr.com/?size=s&url=http://#{url.gsub(/^http\:\/\//,'')}"
   end
   

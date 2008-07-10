@@ -1,3 +1,4 @@
 # Uncomment the following lines to block robots.
-# User-agent: *
-# Disallow: /
+User-agent: *
+Disallow: /entries/*/dispute
+Disallow: /entries/*/confirm
