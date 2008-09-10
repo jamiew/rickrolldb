@@ -1,0 +1,21 @@
+        <!-- pagination -->
+        <div class="navigation"><h2>
+                <%
+			#FIXME: srs baconhand
+                        @entry_count ||= Entry.count(:id, :conditions => "status != 'hidden'")
+                        @page_count ||= (@entry_count / @limit).ceil
+                -%>
+                <a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of new rickrolls" /></a>
+                <%# TODO use url() for the /page/:page URL; also below w/ prev link %>
+                <div class="prevnext next"><%= @page < @page_count ? link_to('&raquo;', "/page/#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
+                <div class="floatRight" id="page-info">
+                        <!--The Culprits <br />-->
+				
+                <small>
+                                <%= @entry_count %> entries;
+                                page <%= @page %> of <%= @page_count %>
+                        </small>
+                </div>
+                <div class="prevnext prev"><%= @page > 1 ? link_to('&laquo', (@page == 2 ? "/" : "/page/#{@page - 1}"), :title => 'Previous page') : '&laquo;' %></div>
+        </h2></div>
+

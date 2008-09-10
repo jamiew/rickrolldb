@@ -1,5 +1,3 @@
-<% puts "WTF MATE" %>
-
 <%# index for entries %>
 
 <div id="add">
@@ -18,24 +16,7 @@
 
 <div id="entries">
 
-	<!-- pagination -->
-	<div class="navigation"><h2>		
-		<% 
-			num_entries = Entry.count(:id, :conditions => "status != 'hidden'")
-			last_page = (num_entries / @limit).ceil 
-		-%>
-		<a class="floatRight rss-link" href="/rss"><img src="/images/feed-icon-28x28.png" alt="RSS" title="RSS feed of new rickrolls" /></a>
-		<%# TODO use url() for the /page/:page URL; also below w/ prev link %>
-		<div class="prevnext next"><%= @page < last_page ? link_to('&raquo;', "/page/#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
-		<div class="floatRight" id="page-info">
-			The Culprits <br />
-	  	<small>
-				<%= num_entries %> entries;
-				page <%= @page %> of <%= last_page %>
-			</small>
-		</div>
-		<div class="prevnext prev"><%= @page > 1 ? link_to('&laquo', "/page/#{@page - 1}", :title => 'Previous page') : '&laquo;' %></div>
-	</h2></div>
+	<%= partial 'pagination' %>
 
 	<!-- rickrolls themselves -->
 	<ul>
@@ -98,22 +79,12 @@
 	<% end unless @entries.nil? -%>
 	<%= '<h3>No entries!</h3>' if @entries.nil? or @entries.empty? %>
 	</ul>
+
+	<br />
+	<%= partial 'pagination' %>
+
 </div> <!-- /#entries -->
 
-
-<!-- prev/next again -->
-<br class="clear" />
-<div class="navigation">
-  <h2>
-  <div class="prevnext next"><%= @page < last_page ? link_to('&raquo', "/page/#{@page + 1}", :title => 'Next page') : '&raquo;'%></div>
-  <div class="floatRight" id="page-info">
-  <small>
-    page <%= @page %> of <%= last_page %>
-  </small>
-  </div>
-  <div class="prevnext prev"><%= @page > 1 ? link_to('&laquo', "/page/#{@page - 1}", :title => 'Previous page') : '&laquo;' %></div>
-  </h2>
-</div>
 
 
 
