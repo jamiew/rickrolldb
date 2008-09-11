@@ -1,14 +1,36 @@
 require 'rubygems'
-Gem.clear_paths
-Gem.path.unshift(File.join(File.dirname(__FILE__), "gems"))
+
+# Figure out the merb root - defaults to the current directory.
+__DIR__ = ENV['MERB_ROOT'] || Dir.getwd
+
+# Piggyback on the merb-core rubygem for initial setup scripts.
+# Requiring it doesn't affect the local gem version of merb-core
+# we might effectively want to load here after. 
+if merb_core_dir = Dir[File.join(__DIR__, 'gems', 'gems', 'merb-core-*')].last
+  require File.join(merb_core_dir, 'lib', 'merb-core', 'script')
+else
+  require 'merb-core/script'
+end
+
+# Include some script helper methods.
+include Merb::ScriptHelpers
+
+# Now setup local gems to be incorporated into the normal loaded gems.
+setup_local_gems!(__DIR__)
+
+# When running rake tasks, you can disable local gems using NO_FROZEN:
+# rake NO_FROZEN=true -T # see all rake tasks, loaded from system gems.
 
 require 'rake'
 require 'rake/rdoctask'
 require 'rake/testtask'
 require 'spec/rake/spectask'
 require 'fileutils'
-require 'merb-core'
-require 'rubigen'
+
+# Require the *real* merb-core, which is the local version for a frozen setup.
+require "merb-core"
+
+require 'merb-core/tasks/merb'
 include FileUtils
 
 # Load the basic runtime dependencies; this will include 
@@ -19,49 +41,17 @@ Merb.load_dependencies(:environment => init_env)
 # Get Merb plugins and dependencies
 Merb::Plugins.rakefiles.each { |r| require r } 
 
+# Load any app level custom rakefile extensions from lib/tasks
+tasks_path = File.join(File.dirname(__FILE__), "lib", "tasks")
+rake_files = Dir["#{tasks_path}/*.rake"]
+rake_files.each{|rake_file| load rake_file }
+
 desc "start runner environment"
 task :merb_env do
   Merb.start_environment(:environment => init_env, :adapter => 'runner')
 end
 
 ##############################################################################
-# ADD YOUR CUSTOM TASKS BELOW
+# ADD YOUR CUSTOM TASKS IN /lib/tasks
+# NAME YOUR RAKE FILES file_name.rake
 ##############################################################################
-
-
-desc "Clean up rickrolldb entries, e.g. hide heavily disputed entries"
-task :entry_cleanup => :merb_env do
-
-  # hide entries w/ enough disputes > confirms
-  minimum = 5 #FIXME make dynamic
-  entries = Entry.find_all_by_status('pending')
-  puts "Found #{entries.length} pending entries..."
-  entries.each do |e| 
-    if e.flags.length > minimum and e.disputes.length+1 > e.confirmations.length
-      puts "Hiding entry #{e.id} => #{e.url}"
-      e.status = 'hidden'
-      e.save
-    elsif e.confirmed?
-      puts "Confirming entry #{e.id} => #{e.url}"
-      e.status = 'confirmed'
-      e.save
-    else
-      puts "Ignoring #{e.id}: #{e.flags.length} flags, (+)#{e.confirmations.length} (-)#{e.disputes.length}"
-    end
-  end
-end
-
-
-# requires web2kit: http://www.paulhammond.org/webkit2png/ 
-desc "Capture screenshots of all Entries using webkit2png"
-task :generate_screenshots => :merb_env do
-  width = Entry.thumbnail_width, height = Entry.thumbnail_width
-  #unless File.exists?(entry.local_thumbnail_path) 
-  clobber = false
-  Entry.find(:all).each { |entry| puts `webkit2png "http://#{entry.url}" -o #{entry.id} -C --clipwidth=#{width} --clipheight=#{height} -D "public/screenshots"` unless File.exists?(entry.local_thumbnail_path) and not clobber }
-end
-
-task :cache_screenshots => :merb_env do
-  clobber = false
-  Entry.find_all_by_status('confirmed').each { |entry| print "#{entry.id}... "; `/usr/bin/wget "#{entry.remote_thumbnail}" -O "public/screenshots/#{entry.id}.jpg"` unless File.exists?(entry.local_thumbnail_path) and not clobber; puts "Done!" }
-end

@@ -435,12 +435,12 @@ ul.entry-info li {
 }  
 .navigation h2 {
   height: 42px;
-  width: 400px;
+  width: 300px;
   margin: 0 auto;
   padding-top: 5px;
 }
 div.prevnext {
-  margin-top: -5px;
+  margin-top: -8px;
   font-size: 30pt;
   display: inline;
   float: right; 
@@ -449,6 +449,7 @@ div.prevnext {
 div.prevnext a {
   border: 0;
   padding-bottom: 4px;
+  padding-top: 0;
   color: #ff0;
 }
 div.prevnext a:hover {
@@ -457,11 +458,11 @@ div.prevnext a:hover {
   color: #f0f;
 }
 div.prev {
-  margin-right: 30px;
+  margin-right: 25px;
   padding-right: 5px;
 }
 div.next {
-  margin-left: 30px;  
+  margin-left: 20px;  
   padding-left: 5px;  
 }
 a.rss-link {
@@ -500,4 +501,6 @@ a.rss-link {
   border-color:#999;
   background:#fff;
 }
+
+#page-info { margin-top: 10px; }
 
