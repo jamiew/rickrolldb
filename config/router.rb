@@ -19,6 +19,9 @@
 # You can also use regular expressions, deferred routes, and many other options.
 # See merb/specs/merb/router.rb for a fairly complete usage sample.
 
+# Um. This should be elsewhere, but Logger hasn't loaded yet? FIXME.
+Merb.logger.level = Logger::DEBUG
+
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do |r|
   # RESTful routes
