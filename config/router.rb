@@ -23,7 +23,7 @@ Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do |r|
   # RESTful routes
   # r.resources :posts
-  
+
   r.resources :entries, :member => {:confirm => :post, :dispute => :post} do |entries|
   #r.match(/\/entries\/confirm\/(.*)/).to(:controller => 'entries', :action => 'confirm', :id => "[1]")
   #r.resources :entries, :member => {:dispute => :get} do |entries|
@@ -32,16 +32,20 @@ Merb::Router.prepare do |r|
   end
   r.match('/page/:page').to(:controller => 'entries', :action =>'index')
   
-  # specific routes
+  # specific routes  
   r.match('/ricklist.txt').to(:controller => 'entries', :action => 'index', :format => 'text')
   r.match('/rickblock.txt').to(:controller => 'entries', :action => 'index', :format => 'text', :rickblock => 'true')
   r.match(/\/(rss|atom|feed)/).to(:controller => 'entries', :action => 'index', :format => 'xml')
   
-  r.resources :user do |users|
+  # JSON version of all of a user's flags
+  r.match('/flags.js').to(:controller => 'entries', :action => 'flags_for_ip', :format => 'js')
+  
+  
+  # r.resources :user do |users|
     # users.resources :entries, :prefix => 'user_'
     # users.resources :comments, :prefix => 'user_'
     # users.resources :flags, :prefix => 'user_'
-  end
+  # end
   
   # page shortcuts
   r.match('/about').to(:controller => 'pages', :action =>'about')

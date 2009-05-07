@@ -88,7 +88,6 @@ class Entries < Application
     if @entry.nil?
       ## check if this is actually a website       
       begin
-        puts uri.inspect
         puts uri.to_s
         req = Net::HTTP.new(uri.host, 80)
         puts req.request_head(uri.path.empty? ? '/' : uri.path)
@@ -191,6 +190,15 @@ class Entries < Application
     else
       render text
     end
+  end
+  
+  
+  # get list of flags for a user
+  # TODO: should actually be in a FlagsController yo
+  def flags_for_ip
+    only_provides :js
+    flags = Flag.find_all_by_ip(params[:ip]).map(&:entry_id)
+    render "var flags = [#{flags.join(',')}];", :layout => false
   end
   
   
