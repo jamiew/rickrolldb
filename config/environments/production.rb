@@ -10,7 +10,7 @@ Merb::Config.use { |c|
 
 Merb::BootLoader.after_app_loads do
   Merb::Cache.setup do
-    register(:page_store, Merb::Cache::PageStore[Merb::Cache::FileStore], :dir => Merb.root / "public")
+    register(:page_store, Merb::Cache::PageStore[Merb::Cache::FileStore], :dir => Merb.root / "public" / "cache")
     register(:action_store, Merb::Cache::ActionStore[Merb::Cache::FileStore], :dir => Merb.root / "tmp")
     register(:default, Merb::Cache::AdhocStore[:page_store, :action_store])
   end
