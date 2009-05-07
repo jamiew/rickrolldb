@@ -24,7 +24,7 @@ Merb::Router.prepare do |r|
   # RESTful routes
   # r.resources :posts
   
-  r.resources :entries, :member => {:confirm => :get, :dispute => :get} do |entries|
+  r.resources :entries, :member => {:confirm => :post, :dispute => :post} do |entries|
   #r.match(/\/entries\/confirm\/(.*)/).to(:controller => 'entries', :action => 'confirm', :id => "[1]")
   #r.resources :entries, :member => {:dispute => :get} do |entries|
     entries.resources :comments
