@@ -45,5 +45,11 @@ $(document).ready(function(){
     return false;
   });
 
+  // hide things you've flagged
+  // TODO benchmark this
+  
+  $('.what').each(function(){
+    console.log($(this));
     
+  });  
 });
