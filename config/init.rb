@@ -23,15 +23,15 @@ require 'net/http'
 require 'merb_helpers'
 require 'merb-assets'
 
-# use_orm :datamapper
+gem 'benschwarz-merb-cache'
+require 'merb-cache'
+
+
+
+# RickrollDB is AR+rspec+erb
 use_orm :activerecord
-# use_orm :sequel
-
-# use_test :test_unit
 use_test :rspec
-
 use_template_engine :erb
-# use_template_engine :haml
 
 
 # See http://wiki.merbivore.com/pages/merb-core-boot-process
@@ -50,6 +50,7 @@ Merb::Config.use do |c|
   # You can of course use your favorite ORM instead: 
   # 'datamapper', 'sequel' or 'activerecord'.
   c[:session_store] = 'cookie'
+  
 end
 
 

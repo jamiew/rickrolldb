@@ -2,6 +2,7 @@ class Entries < Application
   provides :xml, :js, :yaml, :text
   before :authenticate, :only => [:edit, :update, :destroy]
   # cache_action :index
+  cache :index
 
   def index
     @limit = 20 # FIXME
@@ -15,15 +16,15 @@ class Entries < Application
     else # limit it...
       # mysql's offset is ridiculously shitty. wonder if it could be replaced w/ inequalities...
       #@entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"', :include => [:flags])
-      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"')
+      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"', :include => [:flags])
     end
     #Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
-    render
+    display @entries
   end
   
   def xml # FIXME should be raw XML, use .rss
     @entries = Entry.find(:all, :order => 'updated_at DESC', :limit => 12)
-    render
+    display @xml
   end
     
   
