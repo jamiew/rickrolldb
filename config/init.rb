@@ -15,6 +15,7 @@ Merb::BootLoader.after_app_loads do
   # dependency "magic_admin" # this gem uses the app's model classes
 end
 
+# ghetto dependency land -- boy is this app old
 #require 'rubygems'
 require 'htmlentities'
 require 'map_by_method'
