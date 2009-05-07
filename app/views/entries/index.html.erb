@@ -34,7 +34,9 @@
 				<span class="created_at">
 					added <%= timeago(entry.created_at) %><% unless entry.updated_at.nil? or entry.created_at == entry.updated_at %>; last flagged <%= timeago(entry.updated_at) %><% end %>
 				</span>
-				<% new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
+				<%# new_voter = entry.flags.select { |f| f.ip == request.remote_ip }.empty? #CACHEME %>	    
+				<%# with page caching all dreams come true %>
+				<% new_voter = true %>
 			<div class="flags">			
 				<span class="confirm"><code>+</code> 
 				  <% if new_voter %>
