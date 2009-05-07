@@ -12,11 +12,12 @@ class Entries < Application
     # make plentiful the AR object cache; way faster than joins
     if params[:format] == 'text'
       @entries = Entry.find_all_by_status('confirmed')
-      # .select { |e| e.confirmed? }
     else # limit it...
       # mysql's offset is ridiculously shitty. wonder if it could be replaced w/ inequalities...
-      #@entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"', :include => [:flags])
-      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"', :include => [:flags])
+      conditions = 'status != "hidden"'
+      #@entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"')
+      # conditions = "status = 'confirmed' OR status = 'pending'"      
+      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => conditions, :include => [:flags])
     end
     #Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     display @entries
@@ -52,7 +53,6 @@ class Entries < Application
   def create
     print "Entry.create.... "
     #raise '<img src="http://tramchase.com/images/lolz/lol-not-again-RICKROLL.png" alt="" title="this is what you get" />'
-    puts params.inspect
 
     begin
       url = params[:url] || params[:entry][:url]
@@ -149,34 +149,35 @@ class Entries < Application
   ### flagging ###
 
   def confirm # shortcut to add 'confirm:true' flag
-    puts params.inspect
     params[:flag_name] = 'confirm:true'
     flag
   end
+  
   def dispute
     params[:flag_name] = 'confirm:false'
     flag
   end
     
-  def flag # TODO
-    @entry = Entry.find(params[:id])
+  def flag
+
+    # this action is POST-only... router should handle this just fine, but we're just making sure.
+    # TODO should add a GET-friendly page. "do you want to confirm this? are you being tricked?"
+    raise "you cannot just visit this page directly" unless request.method == :post
         
+    # build our flag obj
     ip = request.remote_ip
-    puts "ip = #{ip}"
+    @entry = Entry.find(params[:id])
     flag = Flag.find_or_initialize_by_entry_id_and_ip(@entry.id, ip)
-    puts flag.inspect
-    if flag.new_record?
-      flag.name = params[:flag_name]
-      flag.timestamp = Time.now
-      # user id?
-      flag.save
-      @entry.flags << flag
-      @entry.updated_at = Time.now
-      @entry.save
-    else
-      # raise "You've already flagged this entry. Your IP: #{ip}"
-      raise "already voted!"
-    end
+    raise "already voted!" unless flag.new_record?
+
+    # create -- FIXME
+    flag.name = params[:flag_name]
+    flag.timestamp = Time.now
+    # user id?
+    flag.save
+    @entry.flags << flag
+    @entry.updated_at = Time.now
+    @entry.save
       
     # redirect url(:entry, @entry)
     if request.xhr?
