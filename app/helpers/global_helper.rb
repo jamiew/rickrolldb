@@ -76,7 +76,8 @@ module Merb
           "#{distance} ago"
         end
       else
-        return "on #{system_date.to_formatted_s(date_format)}"
+        # return "on #{system_date.to_formatted_s(date_format)}"
+        return "AHHH"
       end
     end
 

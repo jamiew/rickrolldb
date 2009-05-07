@@ -17,7 +17,7 @@ class Entries < Application
       conditions = 'status != "hidden"'
       #@entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"')
       # conditions = "status = 'confirmed' OR status = 'pending'"      
-      @entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => conditions, :include => [:flags])
+      @entries = Entry.find(:all, :order => 'created_at ASC', :limit => @limit, :offset => @offset, :conditions => conditions, :include => [:flags])
     end
     #Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     display @entries
@@ -147,7 +147,8 @@ class Entries < Application
   
   
   ### flagging ###
-
+  # now require POST operations
+  
   def confirm # shortcut to add 'confirm:true' flag
     params[:flag_name] = 'confirm:true'
     flag
@@ -159,10 +160,6 @@ class Entries < Application
   end
     
   def flag
-
-    # this action is POST-only... router should handle this just fine, but we're just making sure.
-    # TODO should add a GET-friendly page. "do you want to confirm this? are you being tricked?"
-    raise "you cannot just visit this page directly" unless request.method == :post
         
     # build our flag obj
     ip = request.remote_ip
