@@ -1,0 +1,11 @@
+### rickrolldb htaccess ###
+
+RewriteEngine On
+RewriteRule ^ricklist.txt/$ /ricklist.txt [R=301,L]
+
+# block some lamers
+RewriteCond %{HTTP_REFERER} mudkipz\.ws [NC,OR]
+RewriteCond %{HTTP_REFERER} anotherbadsite\.com
+RewriteRule .* - [F]
+
+
