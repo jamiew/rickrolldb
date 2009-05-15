@@ -14,7 +14,7 @@ content = RSS::Maker.make("2.0") { |m|
     i.link = entry_url(entry)
     last_flag = entry.flags.last
     i.description = 
-		"#{entry.confirmations.length} confirmations, #{entry.disputes.length} disputes <br />
+		"#{entry.confirmations} confirmations, #{entry.disputes} disputes <br />
     blacklisted? #{entry.confirmed? ? 'yep' : 'nope'}
 		<p>#{link_to '&raquo; Comments <br /> <img src="'+entry.thumbnail+'" alt="" title="" />', entry_url(entry)}</p>"
     # i.date = last_flag.timestamp rescue Time.now

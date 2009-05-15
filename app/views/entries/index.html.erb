@@ -44,7 +44,7 @@
 			    <% else %>
 			      <strong>confirmations:</strong>
 			    <% end %>
-			    <strong class="count"><%= entry.confirmations.length %></strong>
+			    <strong class="count"><%= entry.confirmations %></strong>
 		    </span>
 				<span class="dispute"><code>-</code> 
 				  <% if new_voter %>
@@ -52,7 +52,7 @@
   				<% else %>
   				  <strong>disputes:</strong>
   				<% end %>
-				  <strong class="count"><%= entry.disputes.length %></strong>
+				  <strong class="count"><%= entry.disputes %></strong>
 				</span>			
 				<br class="clear" />
 			</div> <!-- /.flags -->
@@ -66,7 +66,7 @@
 
 
 			<div class="stats">
-				<% confirms = entry.confirmations.length; disputes = entry.disputes.length %>
+				<% confirms = entry.confirmations; disputes = entry.disputes %>
 				<% width = 300; height = 10 #FIXME %>
 				<div style="float: right; display: inline; width: <%= width - 1%>px; height: 3px; background-color: #aaa;">&nbsp;</div>
 				<div style="background-color: #fbb; float: right; clear: right; display: inline; width: <%= (entry.controversy * width).to_i %>px; height: <%= height %>px;">&nbsp;<%#= ("%.2f" % entry.controversy) %></div>

@@ -6,8 +6,13 @@ class Entry < ActiveRecord::Base
   validates_uniqueness_of :url, :on => :create, :message => "must be unique"
   
   # interesting bits
-  def confirmations; flags.select { |u| u.name == 'confirm:true' }; end
-  def disputes; flags.select { |u| u.name == 'confirm:false' }; end
+  def confirmations
+    Flag.count(:conditions => "entry_id = #{self.id} AND name = 'confirm:true'")
+  end
+  
+  def disputes
+    Flag.count(:conditions => "entry_id = #{self.id} AND name = 'confirm:false'")
+  end
   
   # % of votes needed before it is confirmed (rounded down)
   def confirmation_threshold
@@ -17,8 +22,9 @@ class Entry < ActiveRecord::Base
     12
   end
   def confirmed?
-    if flags.length >= minimum_vote_count and status != 'hidden'
-      return confirmations.length > (flags.length * confirmation_threshold).floor
+    flag_count = flags.count
+    if flag_count >= minimum_vote_count and status != 'hidden'
+      return confirmations > (flag_count * confirmation_threshold).floor
     else
       return false
     end
@@ -37,9 +43,9 @@ class Entry < ActiveRecord::Base
 
   # how disputed is this entry?
   def controversy
-    if disputes.length != confirmations.length
-      ratio = disputes.length.to_f/flags.length.to_f
-      ratio = 1.0 if ratio.to_f.nan? or confirmations.length == 0 # exceptions, not proper
+    if disputes != confirmations
+      ratio = disputes.to_f/flags.count.to_f
+      ratio = 1.0 if ratio.to_f.nan? or confirmations == 0 # exceptions, not proper
     else
       ratio = 0.5
     end

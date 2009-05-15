@@ -1,7 +1,7 @@
 class Entries < Application
   provides :xml, :js, :yaml, :text
   before :authenticate, :only => [:edit, :update, :destroy]
-  # cache_action :index
+
   cache :index
 
   def index
@@ -17,15 +17,22 @@ class Entries < Application
       conditions = 'status != "hidden"'
       #@entries = Entry.find(:all, :order => 'created_at DESC', :limit => @limit, :offset => @offset, :conditions => 'status != "hidden"')
       # conditions = "status = 'confirmed' OR status = 'pending'"      
-      @entries = Entry.find(:all, :order => 'created_at ASC', :limit => @limit, :offset => @offset, :conditions => conditions, :include => [:flags])
+      @entries = Entry.find(:all, :order => 'created_at ASC', :limit => @limit, :offset => @offset, :conditions => conditions)
     end
+    
     #Flag.find(:all, :conditions => "entry_id in (#{@entries.map_by_id.join(',')})")
     display @entries
   end
   
-  def xml # FIXME should be raw XML, use .rss
+  def blacklist
+    @entries = Entry.find_all_by_status('confirmed')
+    render :template => 'entries/index.text'
+  end
+  
+  def rss # FIXME should be raw XML, use .rss
     @entries = Entry.find(:all, :order => 'updated_at DESC', :limit => 12)
-    display @xml
+    # display @xml
+    render :template => 'entries/index.xml'
   end
     
   
@@ -197,7 +204,10 @@ class Entries < Application
   # TODO: should actually be in a FlagsController yo
   def flags_for_ip
     only_provides :js
+
+    params[:ip] ||= request.remote_ip
     flags = Flag.find_all_by_ip(params[:ip]).map(&:entry_id)
+    
     render "var flags = [#{flags.join(',')}];", :layout => false
   end
   
