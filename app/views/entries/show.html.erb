@@ -20,8 +20,8 @@
 	<br />
 	<h2>Stats</h2>
 	<ul class="entry-info entry-stats">
-		<li><em><%= @entry.confirmations.length %></em> confirms, <em><%= @entry.disputes.length %></em> disputes</li>
-		<li><em><%= @entry.flags.length %></em> total votes</li>
+		<li><em><%= @entry.confirmations %></em> confirms, <em><%= @entry.disputes %></em> disputes</li>
+		<li><em><%= @entry.flags.count %></em> total votes</li>
 		<li>Blacklisted? <%= @entry.confirmed? ? 'yep' : 'nope' %></li>
 	</ul>
 </div>

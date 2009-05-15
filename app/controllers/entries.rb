@@ -2,7 +2,7 @@ class Entries < Application
   provides :xml, :js, :yaml, :text
   before :authenticate, :only => [:edit, :update, :destroy]
 
-  cache :index
+  # cache :index
 
   def index
     @limit = 20 # FIXME
