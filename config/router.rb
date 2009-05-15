@@ -32,10 +32,12 @@ Merb::Router.prepare do |r|
   end
   r.match('/page/:page').to(:controller => 'entries', :action =>'index')
   
-  # specific routes  
-  r.match('/ricklist.txt').to(:controller => 'entries', :action => 'index', :format => 'text')
-  r.match('/rickblock.txt').to(:controller => 'entries', :action => 'index', :format => 'text', :rickblock => 'true')
-  r.match(/\/(rss|atom|feed)/).to(:controller => 'entries', :action => 'index', :format => 'xml')
+  # specific routes
+  # FIXME: merb-cache interfering with .xml/.txt... AGH
+  # r.match(/\/(rss|atom|feed)(\.xml)?/).to(:controller => 'entries', :action => 'rss', :format => 'xml')  
+  r.match('/feed.xml').to(:controller => 'entries', :action => 'rss', :format => 'xml')    
+  r.match('/blacklist.txt').to(:controller => 'entries', :action => 'blacklist', :format => 'text')
+
   
   # JSON version of all of a user's flags
   r.match('/flags.js').to(:controller => 'entries', :action => 'flags_for_ip', :format => 'js')

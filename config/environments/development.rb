@@ -7,9 +7,18 @@ Merb::Config.use { |c|
   c[:log_auto_flush ] = true  
 }
 
+# dev
 Merb::BootLoader.after_app_loads do
   Merb::Cache.setup do
     register(:default, Merb::Cache::AdhocStore.new)
   end
 end
 
+# prod
+# Merb::BootLoader.after_app_loads do
+#   Merb::Cache.setup do
+#     register(:page_store, Merb::Cache::PageStore[Merb::Cache::FileStore], :dir => Merb.root / "public")
+#     register(:action_store, Merb::Cache::ActionStore[Merb::Cache::FileStore], :dir => Merb.root / "tmp")
+#     register(:default, Merb::Cache::AdhocStore[:page_store, :action_store])
+#   end
+# end

@@ -2,3 +2,5 @@ config/database.yml
 tmp/*
 log/*
 public/cache
+public/index.html
+public/page
