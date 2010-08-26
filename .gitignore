@@ -4,3 +4,4 @@ log/*
 public/cache
 public/index.html
 public/page
+sweep.sh
