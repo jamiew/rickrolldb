@@ -4,7 +4,7 @@ set :application, "rickrolldb"
 set :deploy_to, "/www/apps/#{application}"
 set :scm,        :git
 set :repository, "git@github.com:jamiew/#{application}.git"
-set :branch,     "origin/master"
+set :branch,     "master"
 
 set :migrate_target, :current
 set :use_sudo, false
