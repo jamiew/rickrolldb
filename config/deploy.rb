@@ -1,7 +1,15 @@
+# rickrolldb deployment
+
 set :application, "rickrolldb"
-set :repository,  "http://tramchase.com/svn/#{application}"
 set :deploy_to, "/www/apps/#{application}"
-# set :scm, :subversion
+set :scm,        :git
+set :repository, "git@github.com:jamiew/#{application}.git"
+set :branch,     "origin/master"
+
+set :migrate_target, :current
+set :use_sudo, false
+set :ssh_options, {:forward_agent => true}
+set :rails_env, 'production'
 
 role :app, "col"
 role :web, "col"
