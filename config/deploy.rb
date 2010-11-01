@@ -29,7 +29,7 @@ default_environment["RAILS_ENV"] = 'production'
 default_run_options[:shell] = 'bash'
 
 namespace :deploy do
-  desc "Deploy the MFer"
+  desc "Deploy the mofo"
   task :default do
     update
     restart
