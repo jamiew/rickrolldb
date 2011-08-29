@@ -2,11 +2,12 @@
 
 #require 'bundler/capistrano'
 
-set :application, 'rickrolldb'
+set :application, "rickrolldb"
 set :deploy_to, "/home/jamie/#{application}"
-set :scm,        :git
+set :scm, "git"
 set :repository, "git@github.com:jamiew/#{application}.git"
-set :branch,     "master"
+set :remote, "origin"
+set :branch, "master"
 
 role :app,  "rickrolldb.com", :primary => true
 role :web,  "rickrolldb.com", :primary => true
@@ -16,6 +17,9 @@ set :migrate_target, :current
 set :use_sudo, false
 set :ssh_options, {:forward_agent => true}
 set :rails_env, 'production'
+
+# Override current_path to have no subdirectories
+set(:current_path) { fetch(:deploy_to) }
 
 set(:latest_release)  { fetch(:current_path) }
 set(:release_path)    { fetch(:current_path) }
@@ -56,7 +60,7 @@ namespace :deploy do
 
   desc "Update the deployed code."
   task :update_code, :except => { :no_release => true } do
-    run "cd #{current_path}; git fetch origin; git reset --hard #{branch}"
+    run "cd #{current_path}; git fetch origin; git reset --hard #{remote}/#{branch}"
     finalize_update
   end
 
