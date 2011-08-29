@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
-  _____  ___   __ __  ____      __    ___  ____    ___   _      _     
- / ___/ /   \ |  T  T|    \    /  ]  /  _]|    \  /   \ | T    | T    
-(   \_ Y     Y|  |  ||  D  )  /  /  /  [_ |  D  )Y     Y| |    | |    
- \__  T|  O  ||  |  ||    /  /  /  Y    _]|    / |  O  || l___ | l___ 
+  _____  ___   __ __  ____      __    ___  ____    ___   _      _
+ / ___/ /   \ |  T  T|    \    /  ]  /  _]|    \  /   \ | T    | T
+(   \_ Y     Y|  |  ||  D  )  /  /  /  [_ |  D  )Y     Y| |    | |
+ \__  T|  O  ||  |  ||    /  /  /  Y    _]|    / |  O  || l___ | l___
  /  \ ||     ||  :  ||    \ /   \_ |   [_ |    \ |     ||     T|     T
  \    |l     !l     ||  .  Y\     ||     T|  .  Yl     !|     ||     |
   \___j \___/  \__,_jl__j\_j \____jl_____jl__j\_j \___/ l_____jl_____j
@@ -18,7 +18,7 @@
   <link rel="alternate" type="application/rss+xml" title="RickrollDB updates feed" href="/rss" />
 
   <link rel="stylesheet" href="/stylesheets/rickblock.css" type="text/css" media="screen" charset="utf-8" />
-	
+
   <script src="/javascripts/jquery.pack.js" type="text/javascript" charset="utf-8"></script>
   <script src="/javascripts/jquery.dimensions.js" type="text/javascript" charset="utf-8"></script>
   <!--<script src="/javascripts/jquery.pagination.js" type="text/javascript" charset="utf-8"></script>-->
@@ -29,77 +29,59 @@
 
 <body>
 	<div id="container">
-		
+
 	  <div id="header">
-		
+
 			<div id="title">
 				<a href="/"><img src="/images/rick-donotwant-slice-sm.jpg" alt="RickBlock, The #1 Rickroll Blocker" title="The #1 Rickroll Blocker" class="logo floatLeft" /></a>
 				<br />
-				
+
 		  	<h1><a href="/">Rickroll Database</a></h1>
 				<h2>Saving the Internets... one roll at a time.</h2>
 			</div>
-	
+
 			<!-- status -->
 			<div id="loading"><img src="/images/loading.gif" alt="Loading..." title="Loading..." /></div>
 			<div id="flash"></div>
-	
+
 			<!-- aboot -->
 			<div id="about" class="box clear">
 				<ul>
 					<li><em>Have you or someone you love been rickroll'd?</em> <br />
 						Submit the URL below. </li>
-					<li>Protect yourself by using <a href="http://getfirefox.com">Firefox</a>, installing <a href="https://addons.mozilla.org/en-US/firefox/addon/1865">Adblock Plus</a> 
+					<li>Protect yourself by using <a href="http://getfirefox.com">Firefox</a>, installing <a href="https://addons.mozilla.org/en-US/firefox/addon/1865">Adblock Plus</a>
 						and subscribing to the rickroll blacklist &rarr;</li>
 					<li>Help verify the database by confirming or disputing entries</li>
 					<li>What's a rickroll? Watch <a href="http://youtube.com/watch?v=KT--CsBh5TM" title="Rickroll 101, narrp">Rocketboom Explains Rickroll</a></li>
-                                       <!-- bookmarklets for the famo -->
-                                       <!-- speed up loading using iframe directly instead of JS -->
-					<!--<li id="bookmarklets">
-						<iframe src="http://digg.com/tools/diggthis.php?u=http%3A//rickrolldb.com&amp;k=%23ffffff&amp;s=compact" frameborder="0" height="20" scrolling="no" width="100"></iframe>
-						<iframe src="http://reddit.com/button?t=1&amp;url=http%3A%2F%2Frickrolldb.com" frameborder="0" height="20" scrolling="no" width="100"></iframe>
-					</li>-->
-					<!--<li>you are <%= request.remote_ip %>, <%= request.user_agent %></li>-->
 				</ul>
 			</div>
 
 			<!-- linx -->
 			<div id="ricklist">
-				
+
 				<%= link_to 'Install AdBlockPlus', 'https://addons.mozilla.org/en-US/firefox/downloads/file/19510/adblock_plus-0.7.5.3-fx+tb+sm+fl.xpi', :class => 'ricklist' %>
 				<br />
-				
+
 				<%= link_to 'Subscribe to AdBlockPlus Filter', "abp://subscribe/?location=http%3A%2F%2F#{site_url}%2Fricklist.txt&amp;title=RickrollDB.com/ricklist.txt", :class => 'subscribe' %>
 				<!-- <%= link_to 'RICKLIST.TXT', '/ricklist.txt', :class => 'ricklist' %> -->
 
-<!--
-				<br /><br />
-				<%#= link_to 'rickroll-bookmarklet', bookmarklet_url, :class => 'ricklist', :style => 'margin-bottom: -10pt;' %> <br />
-				<span style="font-size: 8pt; font-style: italic; margin: 0px 0 0 37px; color: #ccc;">drag to yr bookmarks bar</span>
--->
-<!--
-				<div class="news">
-				<em><strong>Apr. 16th</strong>: "not a valid filter list" issue fixed; you might need to re-subscribe</em>
-				</div>
--->
-				
 			</div>
-			
+
 			<br class="clear" />
-			
+
 	  </div>
-		
-  
-	  <div id="main">		
+
+
+	  <div id="main">
 	    <%= catch_content :for_layout %>
 	  </div>
-    
+
 	  <div id="footer">
 			<big><%= link_to 'about, thanks, & howto', '/about' %> </big>
 			<!-- - <%= link_to 'privacy policy', '/privacy' %>  --> <!-- we don't use much, no need -->
 			<br /><br />
 
-	    copyfree 2007-2008 <a href="http://tramchase.com">Jamie Wilkinson</a> 
+	    copyfree 2007-2008 <a href="http://tramchase.com">Jamie Wilkinson</a>
 		<%# &raquo; <script type="text/javascript">document.write('<a href="mailto:&#106;&#064;&#116;&#114;&#097;&#109;&#099;&#104;&#097;&#115;&#101;&#046;&#099;&#111;&#109;">email me</a>');</script><br /> %>
 		&raquo; <a href="http://tramchase.com/contact">email me</a><br />
 	    <br />
@@ -107,7 +89,7 @@
             <br /><br />
             <a href="http://fffff.at"><% 3.times { %><%='<img src="/images/fatlab.png" title="FATLAB" alt="FATLAB" border="0" /> '%><% } %></a>
 
-  
+
 
 	  </div>
 </div>
