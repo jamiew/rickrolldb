@@ -27,8 +27,6 @@ require 'merb-assets'
 gem 'benschwarz-merb-cache'
 require 'merb-cache'
 
-
-
 # RickrollDB is AR+rspec+erb
 use_orm :activerecord
 use_test :rspec
@@ -42,16 +40,16 @@ Merb::Config.use do |c|
   # Sets up a custom session id key which is used for the session persistence
   # cookie name.  If not specified, defaults to '_session_id'.
   # c[:session_id_key] = '_session_id'
-  
+
   # The session_secret_key is only required for the cookie session store.
   c[:session_secret_key]  = '21a501824a74375bbe31a179af88a182f9ecf1bc'
-  
-  # There are various options here, by default Merb comes with 'cookie', 
-  # 'memory', 'memcache' or 'container'.  
-  # You can of course use your favorite ORM instead: 
+
+  # There are various options here, by default Merb comes with 'cookie',
+  # 'memory', 'memcache' or 'container'.
+  # You can of course use your favorite ORM instead:
   # 'datamapper', 'sequel' or 'activerecord'.
   c[:session_store] = 'cookie'
-  
+
 end
 
 
