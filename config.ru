@@ -1,6 +1,6 @@
 # config.ru
 require 'rubygems'
-require 'activerecord'
+require 'active_record'
 require 'merb-core'
  
 Merb::Config.setup(:merb_root   => ".",
